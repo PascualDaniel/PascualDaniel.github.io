@@ -205,8 +205,49 @@ input, select, textarea {
 	p, ul, ol, dl, table {
 		margin-bottom: 2em;
 	}
+	.project-list {
+		margin: 20px auto;
+		padding: 10px;
+		max-width: 800px;
+		text-align: left; /* Alinea el texto a la izquierda */
+		background-color: #f9f9f9; /* Fondo claro para destacar */
+		border: 1px solid #ddd; /* Borde sutil */
+		border-radius: 8px; /* Bordes redondeados */
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+	}
+	
+	.project-list ul {
+		list-style-position: inside; /* Asegura que los puntos estén dentro del contenedor */
+		padding-left: 20px; /* Espaciado interno */
+	}
+	
+	.project-list ul li {
+		list-style-type: circle; /* Remove bullet points */
+		margin-bottom: 10px; /* Espaciado entre elementos */
+		font-weight: 500; /* Peso medio para el texto */
+	}
+	
+	.project-list ul li strong {
+		font-weight: 700; /* Negrita para destacar las partes importantes */
+		color: #333; /* Color más oscuro para el texto destacado */
+	}
+	
+	.project-list ul ul {
+		list-style-type: circle; /* Cambia el estilo de los puntos para listas anidadas */
+		margin-left: 20px; /* Sangría para listas anidadas */
+		padding-left: 10px;
+	}
 
-	br.clear {
+		/* Highlight section for important notes */
+	.highlight-section {
+		background-color: #fffbcc; /* Light yellow background for emphasis */
+		border-left: 4px solid #ffd700; /* Golden border for visibility */
+		padding: 10px;
+		margin: 20px 0;
+		font-weight: bold;
+		font-size: 1.1em;
+	}
+		br.clear {
 		clear: both;
 	}
 
