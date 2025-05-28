@@ -36,7 +36,12 @@ body {
 ol, ul {
 	list-style: none;
 }
-
+.image.main video {
+			margin: 10px auto;
+			display: block;
+			width: 70%;
+			height: auto;
+		}
 blockquote, q {
 	quotes: none;
 }
