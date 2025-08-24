@@ -1,94 +1,130 @@
+<!DOCTYPE html>
 <html>
-
 <head>
 	<title>Daniel Pascual</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<style>
-		.image.main img {
-			margin: 10px auto;
-			/* Add margin to the top and bottom of the images */
-			display: block;
-			/* Make the images block elements */
-			width: 70%;
-			/* Adjust the width as needed */
-			height: auto;
-			/* Maintain aspect ratio */
-
+		/* Carrusel personalizado */
+		#detailed-contributions {
+			text-align: center;
+			margin-top: 60px;
 		}
 
-		.highlight-link {
-			color: #14006e;
-			/* Change to your desired color */
-			font-weight: bold;
+		.carousel-container {
+			position: relative;
+			max-width: 800px;
+			margin: 0 auto;
+			overflow: hidden;
+			background: #f9f9f9;
+			border-radius: 12px;
+			box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+			padding: 20px;
 		}
+
+		.carousel {
+			display: flex;
+			transition: transform 0.5s ease;
+		}
+
+		.carousel-item {
+			min-width: 100%;
+			box-sizing: border-box;
+			padding: 10px;
+			display: none;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.carousel-item.active {
+			display: flex;
+		}
+
+		.carousel-item video,
+		.carousel-item img {
+			max-width: 100%;
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+			margin-bottom: 15px;
+		}
+
+		.carousel-item h4 {
+			margin: 10px 0 5px;
+			color: #333;
+			font-weight: 600;
+		}
+
+		.carousel-item p {
+			color: #555;
+			font-size: 1em;
+			line-height: 1.4em;
+		}
+
+		.carousel-btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background: #be7c00;
+			border: none;
+			color: white;
+			font-size: 24px;
+			padding: 10px 15px;
+			cursor: pointer;
+			border-radius: 50%;
+			transition: background 0.3s;
+		}
+
+		.carousel-btn:hover {
+			background: #9e6500;
+		}
+
+		.carousel-btn.prev { left: 15px; }
+		.carousel-btn.next { right: 15px; }
 	</style>
 </head>
 
 <body class="is-preload">
-
 	<!-- Header -->
 	<div id="header">
-
 		<div class="top">
-
-			<!-- Logo -->
 			<div id="logo">
 				<span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
 				<h1 id="title">Daniel Pascual</h1>
 				<p>Software Engineer</p>
 			</div>
 
-			<!-- Nav -->
 			<nav id="nav">
 				<ul>
 					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
-					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
-					</li>
+					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
 					<li>
-						<a href="https://store.steampowered.com/app/3587480/Underpacked/" id="steam-link"
-							target="_blank">
+						<a href="https://store.steampowered.com/app/3587480/Underpacked/" id="steam-link" target="_blank">
 							<span class="icon solid fa-gamepad">View on Steam</span>
 						</a>
 					</li>
-
 				</ul>
 			</nav>
-
 		</div>
 
 		<div class="bottom">
-
-			<!-- Social Icons -->
 			<ul class="icons">
-				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span
-							class="label">Twitter</span></a></li>
-				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a>
-				</li>
-				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span
-							class="label">Github</span></a></li>
-				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
-							class="label">linkedin</span></a></li>
-				<li><a href="danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
-							class="label">Email</span></a></li>
+				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
 			</ul>
-
 		</div>
-
 	</div>
 
 	<!-- Main -->
 	<div id="main">
-
 		<section id="top" class="one dark cover">
 			<div class="container">
-
 				<header>
-					<h2 class="alt"> <strong>Underpacked</strong>
-
+					<h2 class="alt"><strong>Underpacked</strong></h2>
 				</header>
-
 			</div>
 		</section>
 
@@ -97,149 +133,66 @@
 				<h2>Underpacked! – Master Degree Project</h2>
 			</header>
 			<div class="video-wrap">
-				<iframe src="https://www.youtube-nocookie.com/embed/Yqu8Kfay-nQ?rel=0" title="Underpacked Trailer"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen>
-				</iframe>
+				<iframe src="https://www.youtube-nocookie.com/embed/Yqu8Kfay-nQ?rel=0" title="Underpacked Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
 			<br>
-			<p>
-				<em>Underpacked!</em> is a third-person cooperative game, free-to-play, developed by the Spanish studio
-				<strong>Drunken Duck Co.</strong> in collaboration with <strong>Voxel School</strong> and
-				<strong>Padaone Games</strong>. With a vibrant cartoon aesthetic and satirical humor, the game blends
-				<em>time management</em>, chaotic action, intergalactic deliveries, and a playful critique of modern
-				work culture.
-			</p>
-
-			<p>
-				Currently available on <a href="https://store.steampowered.com/app/3587480/Underpacked/"
-					target="_blank">Steam</a>, it offers <strong>single-player</strong>, <strong>local co-op</strong>,
-				<strong>Remote Play Together</strong>, and <strong>split-screen PvP</strong> modes. Players take on the
-				role of overworked space couriers, struggling with run-down ships, impossible deadlines, and threats
-				like space pirates — all while trying to deliver packages on time.
-			</p>
-
-			<p>
-				The <strong>official demo</strong> launched on July 11, 2025, featuring four frantic levels and the
-				option to play solo (with the AI companion <em>Jul.IA</em>) or in local co-op. Key gameplay mechanics
-				include:
-			</p>
-			<ul>
-				<li>Customizing packages with specific colors before delivery.</li>
-				<li>Defending the ship using a turret with multiple ammo types.</li>
-				<li>Managing and repairing ship systems under constant pressure.</li>
-				<li>Launching deliveries through the space mailbox before the time limit.</li>
-			</ul>
-
-			<p>
-				The demo received an overwhelmingly positive reception, achieving <strong>100% positive reviews</strong>
-				on Steam for its visual style, fast pace, and humor.
-			</p>
-
-			<hr>
+			<p><em>Underpacked!</em> is a third-person cooperative game...</p>
 
 			<h3>My Contribution to the Project</h3>
-			<p>
-				I worked across a wide range of areas, from gameplay mechanics to technical optimization. Some of my key
-				contributions include:
-			</p>
-
+			<p>I worked across a wide range of areas, from gameplay mechanics to technical optimization. Some of my key contributions include:</p>
 			<div class="project-list">
 				<ul>
-					<li>
-						<strong>Gameplay Mechanics:</strong>
-						<ul>
-							<li>Designed and implemented the turret system with multiple ammo types, each with unique
-								effects.</li>
-							<li>Developed interactive ship systems such as hull breaches, mailbox movement, and respawn
-								capsule logic.</li>
-						</ul>
-					</li>
-					<li>
-						<strong>Visuals & Animation:</strong>
-						<ul>
-							<li>Created and integrated the player and bot animation systems.</li>
-							<li>Contextual animations for repairing, shooting, and carrying packages.</li>
-						</ul>
-					</li>
-					<li>
-						<strong>Technical Art:</strong>
-						<ul>
-							<li>Dynamic tube and cable generators for ship interiors.</li>
-							<li>Implemented holographic displays and in-world UI elements.</li>
-						</ul>
-					</li>
-					<li>
-						<strong>Visual Effects (VFX):</strong>
-						<ul>
-							<li>Explosions, shooting effects, smoke, fire, electricity, and asteroid visuals.</li>
-						</ul>
-					</li>
-					<li>
-						<strong>Post-processing & Audio:</strong>
-						<ul>
-							<li>Outline effects, hit flashes, and color grading for gameplay readability.</li>
-							<li>Integrated FMOD for all sound effects and dynamic music layers.</li>
-						</ul>
-					</li>
-					<li>
-						<strong>Optimization & QA:</strong>
-						<ul>
-							<li>Used Unreal profiler and memory debugger to maintain stable performance.</li>
-							<li>Testing, bug fixing, and continuous playtesting.</li>
-						</ul>
-					</li>
+					<li><strong>Gameplay Mechanics:</strong> turret system, hull breaches, mailbox movement...</li>
+					<li><strong>Visuals & Animation:</strong> player/bot animation systems, contextual actions...</li>
+					<li><strong>Technical Art:</strong> dynamic tube & cable generators, holograms...</li>
+					<li><strong>Visual Effects (VFX):</strong> explosions, fire, electricity...</li>
+					<li><strong>Post-processing & Audio:</strong> outline effects, FMOD integration...</li>
+					<li><strong>Optimization & QA:</strong> profiling, testing, playtesting...</li>
 				</ul>
 			</div>
 
-			<h3>What I Learned</h3>
-			<p>
-				Throughout development, I improved my teamwork, project management, Unreal Engine technical skills,
-				audio integration, QA processes, version control with Perforce, and automated builds with Jenkins.
-			</p>
-
-			<p>
-				Here are some images and videos from the project:
-			</p>
-			<div class="image main">
-				<a href="https://store.steampowered.com/app/3587480/Underpacked/" target="_blank">
-					<img src="../images/Undepacked/Menu.png" alt="Underpacked Screenshot 1" />
-				</a>
-				<a href="https://store.steampowered.com/app/3587480/Underpacked/" target="_blank">
-					<img src="../images/Undepacked/menuUndepack.jpg" alt="Underpacked Screenshot 2" />
-				</a>
-				<a href="https://store.steampowered.com/app/3587480/Underpacked/" target="_blank">
-					<img src="../images/Undepacked/level3.jpg" alt="Underpacked Screenshot 3" />
-				</a>
-
-			</div>
-
+			<!-- Carrusel Detallado -->
+			<section id="detailed-contributions">
+				<h3>Detailed Breakdown</h3>
+				<div class="carousel-container">
+					<div class="carousel">
+						<div class="carousel-item active">
+							<video src="../videos/tutorial-highlight.mp4" autoplay loop muted playsinline></video>
+							<h4>Tutorial – Object Highlight</h4>
+							<p>Highlighted interactable objects with illuminated borders and guiding arrows.</p>
+						</div>
+						<div class="carousel-item">
+							<img src="../images/vfx/kamikaze-explosion.gif" alt="Kamikaze Explosion">
+							<h4>VFX – Kamikaze Explosion</h4>
+							<p>Designed particle systems and post-processing for impactful enemy explosions.</p>
+						</div>
+						<div class="carousel-item">
+							<video src="../videos/player-animations.mp4" autoplay loop muted playsinline></video>
+							<h4>Player Animations</h4>
+							<p>Implemented player animation system: interactions, carrying, repairing, and more.</p>
+						</div>
+					</div>
+					<button class="carousel-btn prev">⟨</button>
+					<button class="carousel-btn next">⟩</button>
+				</div>
+			</section>
 
 			<h3>Development Team</h3>
 			<ul>
-				<li><a href="https://www.linkedin.com/company/drunken-duck-co/" class="highlight-link"
-						target="_blank">Drunken Duck Co. on LinkedIn</a></li>
-				<li>Collaborated with designers, programmers, artists, and sound designers to bring
-					<em>Underpacked!</em> to life.
-				</li>
+				<li><a href="https://www.linkedin.com/company/drunken-duck-co/" class="highlight-link" target="_blank">Drunken Duck Co. on LinkedIn</a></li>
+				<li>Collaborated with designers, programmers, artists, and sound designers...</li>
 			</ul>
 		</section>
-
-
 	</div>
 
 	<!-- Footer -->
 	<div id="footer">
-
-		<!-- Copyright -->
 		<ul class="copyright">
 			<li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
 			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 		</ul>
-
 	</div>
 
-	<!-- Scripts -->
 	<script src="../assets/js/jquery.scrolly.min.js"></script>
 	<script src="../assets/js/jquery.scrollex.min.js"></script>
 	<script src="../assets/js/browser.min.js"></script>
@@ -247,6 +200,30 @@
 	<script src="../assets/js/util.js"></script>
 	<script src="../assets/js/main.js"></script>
 
-</body>
+	<script>
+		const items = document.querySelectorAll('.carousel-item');
+		const nextBtn = document.querySelector('.carousel-btn.next');
+		const prevBtn = document.querySelector('.carousel-btn.prev');
+		let current = 0;
 
+		function showItem(index) {
+			items.forEach((item, i) => {
+				item.classList.remove('active');
+				if (i === index) item.classList.add('active');
+			});
+		}
+
+		nextBtn.addEventListener('click', () => {
+			current = (current + 1) % items.length;
+			showItem(current);
+		});
+
+		prevBtn.addEventListener('click', () => {
+			current = (current - 1 + items.length) % items.length;
+			showItem(current);
+		});
+
+		showItem(current);
+	</script>
+</body>
 </html>
