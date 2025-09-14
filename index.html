@@ -41,12 +41,15 @@
 			<ul class="icons">
 				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span
 							class="label">Twitter</span></a></li>
-				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a>
+				<li>
+					<a href="https://paxcu.itch.io" class="icon solid fa-play">
+						<span class="label">Itch.io</span>
+					</a>
 				</li>
 				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span
 							class="label">Github</span></a></li>
-				<li><a href="https://linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
-							class="label">linkedin</span></a></li>
+				<li><a href="https://linkedin.com/in/daniel-pascual-lopez-600170254"
+						class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
 				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
 							class="label">Email</span></a></li>
 			</ul>
@@ -288,38 +291,59 @@
 		</section>
 
 		<!-- Contact -->
+		<!-- Contact -->
 		<section id="contact" class="four">
 			<div class="container">
-
 				<header>
 					<h2>Contact</h2>
 				</header>
 
-				<p>You can contact me on:</p>
+				<p style="margin-bottom:30px;">Feel free to reach me through any of these platforms:</p>
 
-				<form action="https://formsubmit.co/danielpascuallopez@hotmail.com" method="POST">
-					<div class="row">
-						<div class="col-6 col-12-mobile">
-							<input type="text" name="name" placeholder="Name" required>
-						</div>
-						<div class="col-6 col-12-mobile">
-							<input type="email" name="email" placeholder="Email" required>
-						</div>
-						<div class="col-12">
-							<textarea name="message" placeholder="Message" required></textarea>
-						</div>
-						<div class="col-12">
-							<input type="submit" value="Send Message">
-						</div>
-					</div>
+				<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
 
-					<!-- Opciones ocultas -->
-					<input type="hidden" name="_next" value="https://tusitio.github.io/thanks.html">
-					<input type="hidden" name="_captcha" value="false">
-				</form>
+					<!-- Email -->
+					<a href="mailto:danielpascuallopez@hotmail.com"
+						style="text-decoration: none; color: white; background:#c71610; padding:15px 25px; border-radius:12px; font-size:1.2em; display:flex; align-items:center; gap:10px; transition:0.3s;">
+						<i class="fas fa-envelope"></i> Email
+					</a>
 
+					<!-- LinkedIn -->
+					<a href="https://linkedin.com/in/daniel-pascual-lopez-600170254"
+						style="text-decoration: none; color: white; background:#0077b5; padding:15px 25px; border-radius:12px; font-size:1.2em; display:flex; align-items:center; gap:10px; transition:0.3s;">
+						<i class="fab fa-linkedin"></i> LinkedIn
+					</a>
+
+					<!-- GitHub -->
+					<a href="https://github.com/PascualDaniel"
+						style="text-decoration: none; color: white; background:#333; padding:15px 25px; border-radius:12px; font-size:1.2em; display:flex; align-items:center; gap:10px; transition:0.3s;">
+						<i class="fab fa-github"></i> GitHub
+					</a>
+
+					<!-- Itch.io -->
+					<a href="https://paxcu.itch.io"
+						style="text-decoration: none; color: white; background:#fa5c5c; padding:15px 25px; border-radius:12px; font-size:1.2em; display:flex; align-items:center; gap:10px; transition:0.3s;">
+						<img src="https://static.itch.io/images/itchio-textless-white.svg" alt="Itch.io"
+							style="height:24px;"> Itch.io
+					</a>
+
+					<!-- Twitter/X -->
+					<a href="https://x.com/KillPotatos"
+						style="text-decoration: none; color: white; background:#000000; padding:15px 25px; border-radius:12px; font-size:1.2em; display:flex; align-items:center; gap:10px; transition:0.3s;">
+						<i class="fab fa-x-twitter"></i> Twitter
+					</a>
+
+				</div>
 			</div>
 		</section>
+
+		<!-- Hover effect CSS -->
+		<style>
+			#contact a:hover {
+				transform: scale(1.05);
+				box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+			}
+		</style>
 
 	</div>
 
