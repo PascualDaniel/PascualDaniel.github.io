@@ -440,10 +440,16 @@
 			document.querySelectorAll('.show-toggle').forEach(section => {
 				const button = section.querySelector('.toggle-btn');
 				const row = section.closest('.row');
+				const hiddenItems = row.querySelectorAll('.hidden-item');
 
+				// ✅ Hide them on load
+				hiddenItems.forEach(item => {
+					item.style.display = 'none';
+				});
+
+				// Toggle on click
 				button.addEventListener('click', () => {
-					const hiddenItems = row.querySelectorAll('.hidden-item');
-					const isHidden = hiddenItems[0]?.style.display === '' || hiddenItems[0]?.style.display === 'none';
+					const isHidden = hiddenItems[0]?.style.display === 'none';
 
 					hiddenItems.forEach(item => {
 						item.style.display = isHidden ? 'block' : 'none';
