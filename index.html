@@ -95,7 +95,7 @@
 				<!-- Games Section -->
 				<div style="margin-top: 50px;">
 					<h3 style="text-align: center; font-size: 2em; color: #fd7c03;">🎮 Game Dev</h3>
-					<div class="row" style="margin-top: 20px;">
+					<div class="row" style="margin-top: 20px; display: flex; flex-wrap: wrap;">
 						<!-- Underpacked Project (highlighted and placed first) -->
 						<div class="col-4 col-12-mobile">
 							<article class="item"
@@ -138,9 +138,11 @@
 								<a href="views/slide-dungeon.html" class="image fit">
 									<div class="project-media-container">
 										<img src="images/slide-dungeon/Logo.png" alt="Slide Dungeon" />
-										<video autoplay loop muted playsinline>
-											<source src="https://www.youtube.com/watch?v=mBd4N467fWQ" type="video/mp4">
-										</video>
+										<iframe class="hover-video" src="https://www.youtube.com/embed/mBd4N467fWQ"
+											frameborder="0"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+											allowfullscreen>
+										</iframe>
 									</div>
 								</a>
 								<header>
@@ -194,15 +196,20 @@
 				<!-- Tech Artist Section -->
 				<div style="margin-top: 70px;">
 					<h3 style="text-align: center; font-size: 2em; color: #ffb700;">🎨 Tech Art</h3>
-					<div class="row" style="margin-top: 20px;">
+					<div class="row" style="margin-top: 20px; display: flex; flex-wrap: wrap;">
 						<div class="col-4 col-12-mobile">
 							<article class="item"
 								style="border: 3px solid #ffb700; box-shadow: 0 0 18px #ffb700, 0 0 0 4px #fff inset;">
 								<a href="views/tarmonster.html" class="image fit" style="position: relative;">
-									<img src="images/tar/tar.png" alt="Tar Monster – Technical Art WIP" />
-									<span
-										style="position: absolute; top: 10px; left: 10px; background: #ffb700; color: #222; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-size: 1em; box-shadow: 0 2px 8px #ffb700;">★
-										Shinny</span>
+									<div class="project-media-container">
+										<img src="images/tar/tar.png" alt="Tar Monster – Technical Art WIP" />
+										<video autoplay loop muted playsinline>
+											<source src="images/tar/Bicho.mp4" type="video/mp4">
+										</video>
+										<span
+											style="position: absolute; top: 10px; left: 10px; background: #ffb700; color: #222; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-size: 1em; box-shadow: 0 2px 8px #ffb700;">★
+											Shinny</span>
+									</div>
 								</a>
 								<header>
 									<h3>
@@ -272,7 +279,7 @@
 				<!-- Others Section -->
 				<div style="margin-top: 70px;">
 					<h3 style="text-align: center; font-size: 2em; color: #ff5900;">📂 Others</h3>
-					<div class="row" style="margin-top: 20px;">
+					<div class="row" style="margin-top: 20px; display: flex; flex-wrap: wrap;">
 						<div class="col-4 col-12-mobile">
 							<article class="item">
 								<a href="views/programing-lenguaje.html" class="image fit"><img
