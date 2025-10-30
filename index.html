@@ -96,43 +96,63 @@
 				<div style="margin-top: 50px;">
 					<h3 style="text-align: center; font-size: 2em; color: #fd7c03;">🎮 Game Dev</h3>
 					<div class="row" style="margin-top: 20px; display: flex; flex-wrap: wrap;">
-						<!-- Underpacked Project (highlighted and placed first) -->
+
+						<!-- Visible items -->
 						<div class="col-4 col-12-mobile">
 							<article class="item"
 								style="border: 3px solid #fd7c03; box-shadow: 0 0 18px #fd7c03, 0 0 0 4px #fff inset;">
 								<a href="views/underpacked.html" class="image fit" style="position: relative;">
-									<img src="images/Undepacked/Menu.png" alt="Underpacked" />
-									<span
-										style="position: absolute; top: 10px; left: 10px; background: #fd7c03; color: #fff; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-size: 1em; box-shadow: 0 2px 8px #fd7c03;">★
-										Fantastic</span>
+									<div class="project-media-container">
+										<img src="images/Undepacked/Menu.png" alt="Underpacked" />
+										<video autoplay loop muted playsinline>
+											<source src="images/Undepacked/PackageAnim.mp4" type="video/mp4">
+										</video>
+										<span
+											style="position: absolute; top: 10px; left: 10px; background: #fd7c03; color: #fff; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-size: 1em; box-shadow: 0 2px 8px #fd7c03;">★
+											Fantastic</span>
+									</div>
 								</a>
 								<header>
-									<h3>
-										<a href="views/underpacked.html" style="color: #14006e;">Underpacked <span
-												style="font-size:0.7em; color:#fd7c03;">(Master Project)</span></a>
-									</h3>
+									<h3><a href="views/underpacked.html" style="color: #14006e;">Underpacked <span
+												style="font-size:0.7em; color:#fd7c03;">(Master Project)</span></a></h3>
 								</header>
 							</article>
 						</div>
+
 						<div class="col-4 col-12-mobile">
 							<article class="item">
-								<a href="views/gou.html" class="image fit"><img
-										src="https://img.itch.zone/aW1hZ2UvMzQ3MDc2NS8yMDcyMTQyNi5wbmc=/250x600/oTlMN%2B.png"
-										alt="Gou" /></a>
+								<a href="views/gou.html" class="image fit">
+									<div class="project-media-container">
+										<img src="images/GOU/GOURLogo.png" alt="Gou" />
+										<video autoplay loop muted playsinline>
+											<source src="images/GOU/GouGameplay.mp4" type="video/mp4">
+										</video>
+									</div>
+								</a>
 								<header>
 									<h3>Gou</h3>
 								</header>
 							</article>
 						</div>
+
 						<div class="col-4 col-12-mobile">
 							<article class="item">
-								<a href="views/big-nanny.html" class="image fit"><img src="images/bignanny.png"
-										alt="Big Nanny is Watching" /></a>
+								<a href="views/big-nanny.html" class="image fit">
+									<div class="project-media-container">
+										<img src="images/bignanny.png" alt="Big Nanny is Watching" />
+										<video autoplay loop muted playsinline>
+											<source
+												src="https://cdn.artstation.com/p/video_sources/002/627/636/changevideo.mp4"
+												type="video/mp4">
+										</video>
+									</div>
+								</a>
 								<header>
 									<h3><a href="views/big-nanny.html">Big Nanny is Watching</a></h3>
 								</header>
 							</article>
 						</div>
+
 						<div class="col-4 col-12-mobile">
 							<article class="item">
 								<a href="views/slide-dungeon.html" class="image fit">
@@ -141,8 +161,7 @@
 										<iframe class="hover-video" src="https://www.youtube.com/embed/mBd4N467fWQ"
 											frameborder="0"
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-											allowfullscreen>
-										</iframe>
+											allowfullscreen></iframe>
 									</div>
 								</a>
 								<header>
@@ -150,7 +169,9 @@
 								</header>
 							</article>
 						</div>
-						<div class="col-4 col-12-mobile">
+
+						<!-- Hidden items -->
+						<div class="col-4 col-12-mobile hidden-item">
 							<article class="item">
 								<a href="views/tony-soap.html" class="image fit"><img
 										src="https://img.itch.zone/aW1nLzE5NTM2NTcwLnBuZw==/original/CLzgs4.png"
@@ -160,7 +181,8 @@
 								</header>
 							</article>
 						</div>
-						<div class="col-4 col-12-mobile">
+
+						<div class="col-4 col-12-mobile hidden-item">
 							<article class="item">
 								<a href="views/belts.html" class="image fit"><img src="/images/belt.png"
 										alt="Conveyor Belt Demo" /></a>
@@ -169,7 +191,8 @@
 								</header>
 							</article>
 						</div>
-						<div class="col-4 col-12-mobile">
+
+						<div class="col-4 col-12-mobile hidden-item">
 							<article class="item">
 								<a href="views/human-herding.html" class="image fit"><img
 										src="https://img.itch.zone/aW1nLzk4NDUyMjMucG5n/original/OJTOkp.png"
@@ -179,7 +202,8 @@
 								</header>
 							</article>
 						</div>
-						<div class="col-4 col-12-mobile">
+
+						<div class="col-4 col-12-mobile hidden-item">
 							<article class="item">
 								<a href="views/crisopo.html" class="image fit"><img
 										src="https://img.itch.zone/aW1nLzk5NDI2MjgucG5n/original/NLOIsH.png"
@@ -187,6 +211,16 @@
 								<header>
 									<h3>Chrisopoeia</h3>
 								</header>
+							</article>
+						</div>
+
+						<!-- Show More button -->
+						<div class="col-4 col-12-mobile show-toggle">
+							<article class="item">
+								<a href="javascript:void(0)" class="image fit toggle-btn"
+									style="text-align:center; padding:40px 0;">
+									<h3 style="color:#14006e;">Show More</h3>
+								</a>
 							</article>
 						</div>
 
@@ -263,16 +297,7 @@
 								</header>
 							</article>
 						</div>
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="views/artstation.html" class="image fit"><img
-										src="https://cdnb.artstation.com/p/assets/images/images/087/256/143/large/pascualdaniel-imagen-2025-04-22-150504810.jpg?1745327528"
-										alt="ArtStation Portfolio" /></a>
-								<header>
-									<h3><a href="views/artstation.html">ArtStation Portfolio</a></h3>
-								</header>
-							</article>
-						</div>
+
 					</div>
 				</div>
 
@@ -286,6 +311,24 @@
 										src="images/lenguaje.png" alt="Python--" /></a>
 								<header>
 									<h3>Python--</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="views/artstation.html" class="image fit">
+									<div class="project-media-container">
+										<img src="https://cdnb.artstation.com/p/assets/images/images/087/256/143/large/pascualdaniel-imagen-2025-04-22-150504810.jpg?1745327528"
+											alt="ArtStation Portfolio" />
+										<video autoplay loop muted playsinline>
+											<source
+												src="https://cdn.artstation.com/p/video_sources/002/571/861/postprocess.mp4"
+												type="video/mp4">
+										</video>
+									</div>
+								</a>
+								<header>
+									<h3><a href="views/artstation.html">ArtStation Portfolio</a></h3>
 								</header>
 							</article>
 						</div>
@@ -390,6 +433,25 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			document.querySelectorAll('.show-toggle').forEach(section => {
+				const button = section.querySelector('.toggle-btn');
+				const row = section.closest('.row');
+
+				button.addEventListener('click', () => {
+					const hiddenItems = row.querySelectorAll('.hidden-item');
+					const isHidden = hiddenItems[0]?.style.display === '' || hiddenItems[0]?.style.display === 'none';
+
+					hiddenItems.forEach(item => {
+						item.style.display = isHidden ? 'block' : 'none';
+					});
+
+					button.querySelector('h3').textContent = isHidden ? 'Show Less' : 'Show More';
+				});
+			});
+		});
+	</script>
 
 </body>
 
