@@ -26,6 +26,16 @@
 			}, 100);
 		});
 
+	// Header visibility on scroll: start transparent, become visible when scrolled down.
+		var $header = $('#header');
+		function updateHeaderOnScroll() {
+			if ($window.scrollTop() > 40) $header.addClass('header--scrolled');
+			else $header.removeClass('header--scrolled');
+		}
+		$window.on('scroll', updateHeaderOnScroll);
+		// Initialize state
+		updateHeaderOnScroll();
+
 	// Nav.
 		var $nav_a = $nav.find('a');
 
