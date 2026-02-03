@@ -50,12 +50,31 @@
 						.addClass('active')
 						.addClass('active-locked');
 
+				// Keep the URL in sync (add /#section without jumping the page)
+					var id = $this.attr('href');
+					if (window.history && history.replaceState) {
+						history.replaceState(null, null, id);
+					}
+
+				// If scrolly isn't available for some reason, do a fallback animate so clicks always scroll.
+					if (typeof $.fn.scrolly !== 'function') {
+						var $target = $(id);
+						if ($target.length) {
+							$('html,body').stop().animate({ scrollTop: $target.offset().top }, 1000, 'swing');
+						}
+					}
+
 			})
 			.each(function() {
 
 				var	$this = $(this),
-					id = $this.attr('href'),
-					$section = $(id);
+					id = $this.attr('href');
+
+				// Ignore external links (non-hash hrefs).
+					if (!id || id.charAt(0) != '#')
+						return;
+
+				var $section = $(id);
 
 				// No section for this link? Bail.
 					if ($section.length < 1)

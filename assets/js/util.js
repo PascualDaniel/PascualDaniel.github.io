@@ -153,7 +153,7 @@
 								href = $a.attr('href'),
 								target = $a.attr('target');
 
-							if (!href || href == '#' || href == '' || href == '#' + id)
+if (!href || href == '#' || href == '' || href == '#' + id || (href.charAt && href.charAt(0) == '#' && $(href).length > 0))
 								return;
 
 							// Cancel original event.
