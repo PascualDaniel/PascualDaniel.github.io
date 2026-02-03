@@ -3172,8 +3172,17 @@ button:active,
 		backface-visibility: hidden;
 		padding-bottom: 1px;
 		margin-left: 0;
-		padding-top: 7em;
+		/* removed top padding on narrow screens so hero sits at the top (no white bar) */
+		padding-top: 0;
 	}
+
+	/* When the off-canvas header is opened, lock page scroll so layout doesn't jump */
+	body.header-visible {
+		overflow: hidden;
+	}
+
+	/* ensure hero touches the very top on very small screens */
+	#top.one.dark.cover { padding-top: 0 !important; }
 
 	#main>section {
 		padding: 3em 0;
@@ -3255,6 +3264,17 @@ button:active,
 #header .bottom {
 	border-top: none !important;
 	box-shadow: none !important;
+}
+
+/* Keep #main flush to top (prevents persistent white gap at medium widths).
+   Only add top padding when header is in scrolled state (visible background).
+   Uses sibling selector so it overrides media-specific padding values. */
+#header + #main {
+	padding-top: 0 !important;
+}
+#header.header--scrolled + #main,
+#header.header-scrolled + #main {
+	padding-top: 6em !important; /* restore space when header background becomes visible */
 }
 
 /* Support both class naming variants for scrolled state */
