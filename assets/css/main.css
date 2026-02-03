@@ -172,7 +172,7 @@ body {
 }
 
 #portfolio {
-	padding-top: 2.5em;
+	padding-top: 1em;
 }
 
 .item {
@@ -792,30 +792,30 @@ br.clear {
 }
 
 #top.one.dark.cover {
-	height: 32vh;
-	/* o 100vh si quieres ocupar toda la pantalla */
+	height: 20vh;
+	/* smaller hero so portfolio is visible on load */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	color: white;
-}
+} 
 
 #top.one.dark.cover h2 {
-	font-size: 1.7rem;
+	font-size: 1.4rem;
 	margin-bottom: 0;
 	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-	/* sombra fuerte para contraste */
+	/* slightly smaller heading to fit in smaller hero */
 }
 
 #top.one.dark.cover p {
-	font-size: 1rem;
-	line-height: 1.6;
+	font-size: 0.95rem;
+	line-height: 1.5;
 	max-width: 700px;
 	margin: 0 auto;
 	text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-	/* ligera sombra en el texto */
-}
+	/* slightly reduced paragraph size */
+} 
 
 /* Container */
 
