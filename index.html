@@ -27,6 +27,7 @@
 					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
 					<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
 					</li>
+					<li><a href="#threejs" id="threejs-link"><span class="icon solid fa-cube">Tech Art Lab</span></a></li>
 					<li><a href="#about" id="about-link"><span class="icon solid fa-user">About Me</span></a></li>
 					<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a>
 					</li>
@@ -399,6 +400,45 @@
 			</div>
 		</section>
 
+		<section id="threejs" class="two tech-lab">
+			<div class="container">
+				<header>
+					<h2 class="section-title">Tech Art Lab</h2>
+				</header>
+				<p class="section-subtitle">A playful space to showcase shader-driven experiments, real-time FX, and
+					interactive visuals powered by Three.js.</p>
+
+				<div class="tech-lab-grid">
+					<div class="tech-lab-canvas">
+						<canvas id="threejs-canvas" aria-label="Three.js interactive demo"></canvas>
+						<div class="tech-lab-overlay">
+							<h3>Realtime Showcase</h3>
+							<p>Procedural shapes, animated lighting, and a particle field create a living backdrop for your
+								portfolio.</p>
+						</div>
+					</div>
+					<div class="tech-lab-cards">
+						<article class="tech-card">
+							<h3>Material &amp; Shader Studies</h3>
+							<p>Stylized toon ramps, holograms, emissive glows, and custom fresnel highlights.</p>
+						</article>
+						<article class="tech-card">
+							<h3>Real-Time FX</h3>
+							<p>GPU particles, ribbon trails, volumetric fog, and screen-space post-process layers.</p>
+						</article>
+						<article class="tech-card">
+							<h3>Tools &amp; Pipelines</h3>
+							<p>Artist-friendly controls, exportable presets, and performance debugging dashboards.</p>
+						</article>
+						<article class="tech-card">
+							<h3>Interactive Storytelling</h3>
+							<p>Scroll-driven camera moves, interactive props, and narrated project highlights.</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- About Me -->
 		<section id="about" class="three">
 			<div class="container">
@@ -494,6 +534,7 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script type="module" src="assets/js/threejs-showcase.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			document.querySelectorAll('.show-toggle').forEach(section => {
