@@ -29,10 +29,13 @@
 	// Header visibility on scroll: start transparent, become visible when scrolled down.
 		var $header = $('#header');
 		function updateHeaderOnScroll() {
-			if ($window.scrollTop() > 40) $header.addClass('header--scrolled');
-			else $header.removeClass('header--scrolled');
+			var threshold = 100; // require some scroll before showing header
+			if ($window.scrollTop() > threshold) $header.addClass('header--scrolled header-scrolled');
+			else $header.removeClass('header--scrolled header-scrolled');
 		}
 		$window.on('scroll', updateHeaderOnScroll);
+		// Also check on load (in case page opens already scrolled)
+		$window.on('load', updateHeaderOnScroll);
 		// Initialize state
 		updateHeaderOnScroll();
 
