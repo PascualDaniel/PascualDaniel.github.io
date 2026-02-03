@@ -65,9 +65,12 @@
 
 		<!-- Intro -->
 		<section id="top" class="one dark cover">
-			<div class="container">
-
-			</div>
+			
+				
+						<canvas id="hero-canvas" aria-label="Hero Three.js background" role="img"></canvas>
+						
+					
+			
 		</section>
 
 		<!-- Portfolio -->
@@ -391,7 +394,7 @@
 
 				<div class="tech-lab-grid">
 					<div class="tech-lab-canvas">
-						<canvas id="threejs-canvas" aria-label="Three.js interactive demo"></canvas>
+						<canvas id="threejs-lab-canvas" aria-label="Three.js interactive demo"></canvas>
 						<div class="tech-lab-overlay">
 							<h3>Realtime Showcase</h3>
 							<p>Shader-driven visuals with interactive controls and dynamic lighting.</p>
@@ -532,6 +535,7 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script type="module" src="assets/js/threejs-showcase.js"></script>
+	<script type="module" src="assets/js/hero-showcase.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			document.querySelectorAll('.show-toggle').forEach(section => {

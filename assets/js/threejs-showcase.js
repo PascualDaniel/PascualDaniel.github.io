@@ -1,6 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
 
-const canvas = document.querySelector('#threejs-canvas');
+// Prefer the canvas inside the tech-lab block so the hero can use its own canvas
+const canvas = document.querySelector('.tech-lab-canvas canvas');
 
 if (canvas) {
 	const scene = new THREE.Scene();
