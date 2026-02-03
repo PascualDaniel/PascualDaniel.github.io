@@ -26,14 +26,35 @@ if (canvas) {
 	scene.add(fillLight);
 
 	const geometry = new THREE.TorusKnotGeometry(0.75, 0.28, 180, 16);
-	const material = new THREE.MeshStandardMaterial({
-		color: 0x6c5ce7,
-		roughness: 0.35,
-		metalness: 0.55,
-		emissive: 0x2d1a70,
-		emissiveIntensity: 0.3
+	const shaderMaterial = new THREE.ShaderMaterial({
+		uniforms: {
+			uTime: { value: 0 }
+		},
+		vertexShader: `
+			varying vec2 vUv;
+			varying float vWave;
+
+			void main() {
+				vUv = uv;
+				vWave = sin(position.y * 4.0);
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+			}
+		`,
+		fragmentShader: `
+			uniform float uTime;
+			varying vec2 vUv;
+			varying float vWave;
+
+			void main() {
+				float wave = sin(uTime + vUv.y * 6.2831) * 0.5 + 0.5;
+				vec3 base = mix(vec3(0.15, 0.05, 0.45), vec3(0.45, 0.37, 0.95), vUv.y);
+				vec3 highlight = mix(vec3(1.0, 0.62, 0.11), vec3(0.41, 0.36, 0.9), wave);
+				vec3 color = mix(base, highlight, wave * 0.8) + vWave * 0.08;
+				gl_FragColor = vec4(color, 1.0);
+			}
+		`
 	});
-	const heroMesh = new THREE.Mesh(geometry, material);
+	const heroMesh = new THREE.Mesh(geometry, shaderMaterial);
 	scene.add(heroMesh);
 
 	const particleCount = 220;
@@ -65,6 +86,7 @@ if (canvas) {
 
 	const animate = () => {
 		requestAnimationFrame(animate);
+		shaderMaterial.uniforms.uTime.value += 0.02;
 		heroMesh.rotation.x += 0.003;
 		heroMesh.rotation.y += 0.006;
 		particles.rotation.y -= 0.0008;
