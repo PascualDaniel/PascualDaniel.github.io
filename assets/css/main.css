@@ -217,6 +217,68 @@ body {
 	color: var(--ink-light);
 }
 
+.threejs-carousel {
+	background: var(--surface);
+	border-radius: 20px;
+	padding: 1.5rem;
+	box-shadow: 0 16px 32px rgba(20, 0, 110, 0.12);
+	border: 1px solid rgba(108, 92, 231, 0.18);
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.threejs-carousel-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+}
+
+.threejs-controls {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.threejs-btn {
+	background: var(--accent);
+	color: var(--ink-light);
+	border: none;
+	border-radius: 999px;
+	padding: 0.5rem 1.2rem;
+	font-size: 0.95em;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.threejs-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 16px rgba(108, 92, 231, 0.3);
+}
+
+.threejs-slides {
+	display: grid;
+	gap: 0.9rem;
+}
+
+.threejs-slide {
+	border-radius: 16px;
+	padding: 1rem 1.2rem;
+	background: rgba(108, 92, 231, 0.08);
+	border: 1px solid transparent;
+	transition: border 0.2s ease, background 0.2s ease;
+}
+
+.threejs-slide.is-active {
+	background: rgba(108, 92, 231, 0.16);
+	border: 1px solid rgba(108, 92, 231, 0.4);
+}
+
+.threejs-slide h4 {
+	color: #14006e;
+	margin-bottom: 0.35rem;
+}
+
 .tech-lab-cards {
 	display: grid;
 	gap: 1.25rem;

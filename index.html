@@ -270,7 +270,30 @@
 				<!-- Tech Artist Section -->
 				<div style="margin-top: 70px;">
 					<h3 style="text-align: center; font-size: 2em; color: #ffb700;">🎨 Tech Art</h3>
-					
+					<p class="shader-carousel-intro">Swipe through shader themes to highlight the visual R&amp;D you love
+						building.</p>
+					<div class="shader-carousel">
+						<div class="shader-slide">
+							<h4>Toon &amp; Stylized</h4>
+							<p>Cel ramps, custom outlines, and stylized lighting controls for art-directed looks.</p>
+						</div>
+						<div class="shader-slide">
+							<h4>Hologram &amp; Sci-Fi</h4>
+							<p>Scanlines, fresnel glow, and glitch modulation for futuristic UI or props.</p>
+						</div>
+						<div class="shader-slide">
+							<h4>Water &amp; Fluids</h4>
+							<p>Animated normals, refraction, and foam masks to sell motion and depth.</p>
+						</div>
+						<div class="shader-slide">
+							<h4>Procedural Noise</h4>
+							<p>Voronoi, Perlin, and triplanar blends to generate textures on the fly.</p>
+						</div>
+						<div class="shader-slide">
+							<h4>FX &amp; Particles</h4>
+							<p>GPU sprites, ribbon trails, and distortion passes for gameplay feedback.</p>
+						</div>
+					</div>
 					<div class="row" style="margin-top: 20px; display: flex; flex-wrap: wrap;">
 						<div class="col-4 col-12-mobile">
 							<article class="item"
@@ -409,16 +432,43 @@
 				<p class="section-subtitle">A playful space to showcase shader-driven experiments, real-time FX, and
 					interactive visuals powered by Three.js.</p>
 
-					<div class="tech-lab-grid">
-						<div class="tech-lab-canvas">
-							<canvas id="threejs-canvas" aria-label="Three.js interactive demo"></canvas>
-							<div class="tech-lab-overlay">
-								<h3>Realtime Showcase</h3>
-								<p>Shader-driven gradients, animated lighting, and a particle field create a living backdrop for
-									your portfolio.</p>
-							</div>
+				<div class="tech-lab-grid">
+					<div class="tech-lab-canvas">
+						<canvas id="threejs-canvas" aria-label="Three.js interactive demo"></canvas>
+						<div class="tech-lab-overlay">
+							<h3>Realtime Showcase</h3>
+							<p>Shader-driven gradients, animated lighting, and a particle field create a living backdrop for
+								your portfolio.</p>
 						</div>
 					</div>
+					<div class="threejs-carousel">
+						<div class="threejs-carousel-header">
+							<h3>Shader Carousel</h3>
+							<div class="threejs-controls">
+								<button class="threejs-btn" type="button" data-direction="prev" aria-label="Previous shader">
+									← Prev
+								</button>
+								<button class="threejs-btn" type="button" data-direction="next" aria-label="Next shader">
+									Next →
+								</button>
+							</div>
+						</div>
+						<div class="threejs-slides">
+							<article class="threejs-slide is-active" data-shader-index="0">
+								<h4>Aurora Gradient</h4>
+								<p>Soft UV gradients with animated waves for a dreamy, colorful tech-art look.</p>
+							</article>
+							<article class="threejs-slide" data-shader-index="1">
+								<h4>Toon Ramp</h4>
+								<p>Quantized lighting bands and crisp shading for stylized, comic-style rendering.</p>
+							</article>
+							<article class="threejs-slide" data-shader-index="2">
+								<h4>Hologram Scanline</h4>
+								<p>Fresnel glow, scanlines, and flicker to sell sci-fi holographic materials.</p>
+							</article>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
