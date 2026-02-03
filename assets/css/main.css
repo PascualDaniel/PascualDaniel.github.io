@@ -825,14 +825,22 @@ br.clear {
 	opacity: 1;
 }
 
+/* Hero top: responsive sizing */
 #top.one.dark.cover {
-	height: 20vh;
-	/* smaller hero so portfolio is visible on load */
+	min-height: 45vh; /* larger hero for Three.js showcase */
+	height: auto;
+	/* ensure layout keeps canvas full-bleed */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	color: white;
+	position: relative;
+}
+
+/* Slightly smaller hero on very small screens */
+@media screen and (max-width: 480px) {
+	#top.one.dark.cover { min-height: 38vh; }
 } 
 
 #top.one.dark.cover h2 {
