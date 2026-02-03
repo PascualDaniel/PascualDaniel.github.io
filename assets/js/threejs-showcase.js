@@ -103,7 +103,54 @@ if (canvas) {
 					gl_FragColor = vec4(color * flicker, 1.0);
 				}
 			`
+		},{
+	name: 'PS1 Retro',
+	vertexShader: `
+		varying vec2 vUv;
+		varying float vLight;
+
+		void main() {
+			vUv = uv;
+
+			// Fake low-poly lighting
+			vec3 n = normalize(normalMatrix * normal);
+			vec3 lightDir = normalize(vec3(0.4, 0.8, 0.2));
+			vLight = dot(n, lightDir) * 0.5 + 0.5;
+
+			// PS1-style vertex snapping (screen-space wobble)
+			vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+			float snap = 120.0;
+			mvPosition.xy = floor(mvPosition.xy * snap) / snap;
+
+			gl_Position = projectionMatrix * mvPosition;
 		}
+	`,
+	fragmentShader: `
+		uniform float uTime;
+		varying vec2 vUv;
+		varying float vLight;
+
+		void main() {
+			// Affine-style UV wobble
+			vec2 uv = vUv;
+			uv.x += sin(uv.y * 12.0 + uTime) * 0.03;
+			uv.y += sin(uv.x * 10.0 + uTime * 0.7) * 0.03;
+
+			// Base PS1-ish colors
+			vec3 colorA = vec3(0.6, 0.2, 0.8);
+			vec3 colorB = vec3(0.1, 0.7, 0.5);
+			vec3 color = mix(colorA, colorB, uv.y);
+
+			// Cheap lighting
+			color *= vLight;
+
+			// Color banding (5-bit color)
+			color = floor(color * 32.0) / 32.0;
+
+			gl_FragColor = vec4(color, 1.0);
+		}
+	`
+}
 	];
 
 	const buildMaterial = (preset) => new THREE.ShaderMaterial({
