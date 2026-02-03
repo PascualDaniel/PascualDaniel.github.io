@@ -150,17 +150,71 @@ body {
 }
 
 .section-title {
-	font-size: 2.6em;
+	font-size: 2.15em;
 	text-align: center;
 	color: #14006e;
 }
 
 .section-subtitle {
 	text-align: center;
-	font-size: 1.15em;
+	font-size: 1.05em;
 	max-width: 720px;
 	margin: 0 auto 2.5em;
 	color: #3b3b52;
+}
+
+.section-kicker {
+	text-align: center;
+	font-size: 1.55em;
+	color: var(--kicker-color, #14006e);
+	letter-spacing: 0.02em;
+	margin-bottom: 0.5em;
+}
+
+.hero-highlights {
+	margin-top: 2rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 1rem;
+}
+
+.hero-card {
+	background: rgba(255, 255, 255, 0.12);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 16px;
+	padding: 1rem 1.1rem;
+	text-align: left;
+	color: var(--ink-light);
+	backdrop-filter: blur(4px);
+	text-decoration: none;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 14px 28px rgba(10, 10, 25, 0.35);
+}
+
+.hero-card span {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.75rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-card h3 {
+	margin-top: 0.4rem;
+	color: var(--ink-light);
+	font-size: 1.05rem;
+}
+
+.hero-card p {
+	margin-top: 0.4rem;
+	font-size: 0.9rem;
+	color: rgba(255, 255, 255, 0.78);
 }
 
 .item {
@@ -780,7 +834,7 @@ br.clear {
 }
 
 #top.one.dark.cover {
-	height: 60vh;
+	height: 52vh;
 	/* o 100vh si quieres ocupar toda la pantalla */
 	display: flex;
 	align-items: center;
@@ -790,14 +844,14 @@ br.clear {
 }
 
 #top.one.dark.cover h2 {
-	font-size: 3rem;
+	font-size: 2.2rem;
 	margin-bottom: 1rem;
 	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
 	/* sombra fuerte para contraste */
 }
 
 #top.one.dark.cover p {
-	font-size: 1.25rem;
+	font-size: 1.05rem;
 	line-height: 1.6;
 	max-width: 700px;
 	margin: 0 auto;
@@ -2655,7 +2709,7 @@ button:active,
 	position: fixed;
 	text-align: right;
 	top: 0;
-	width: 375px;
+	width: 300px;
 }
 
 #header .top {
@@ -2696,7 +2750,7 @@ button:active,
 
 #logo {
 	position: relative;
-	margin: 1.75em 1.5em 1.5em 1.5em;
+	margin: 1.25em 1.25em 1.25em 1.25em;
 	min-height: 48px;
 	cursor: default;
 }
@@ -2705,14 +2759,14 @@ button:active,
 	position: relative;
 	color: #fff;
 	font-weight: 600;
-	font-size: 1em;
+	font-size: 0.95em;
 	line-height: 1em;
 }
 
 #logo p {
 	position: relative;
 	display: block;
-	font-size: 0.6em;
+	font-size: 0.65em;
 	color: rgba(255, 255, 255, 0.5);
 	line-height: 1.25em;
 	margin: 0.5em 0 0 0;
@@ -2736,7 +2790,7 @@ button:active,
 
 #nav ul li a {
 	display: block;
-	padding: 0.5em 1.5em 0.5em 1.5em;
+	padding: 0.45em 1.25em;
 	color: rgba(255, 255, 255, 0.5);
 	text-decoration: none;
 	outline: 0;
@@ -2750,7 +2804,7 @@ button:active,
 #nav ul li a span {
 	position: relative;
 	display: block;
-	font-size: 0.8em;
+	font-size: 0.75em;
 }
 
 #nav ul li a span:before {
@@ -2775,7 +2829,7 @@ button:active,
 /* Footer */
 
 #footer {
-	margin-left: 375px;
+	margin-left: 300px;
 	text-align: center;
 	background-color: #dce3e2;
 	padding: 3em 0 4em 0;
@@ -2805,7 +2859,7 @@ button:active,
 /* Main */
 
 #main {
-	margin-left: 375px;
+	margin-left: 300px;
 }
 
 #main>section {
@@ -2845,7 +2899,7 @@ button:active,
 }
 
 #main>section.cover {
-	padding: 10em 0;
+	padding: 6.5em 0;
 	background-size: cover;
 	background-position: center center;
 }
@@ -2883,19 +2937,19 @@ button:active,
 	/* Header */
 
 	#header {
-		width: 300px;
+		width: 280px;
 	}
 
 	/* Footer */
 
 	#footer {
-		margin-left: 300px;
+		margin-left: 280px;
 	}
 
 	/* Main */
 
 	#main {
-		margin-left: 300px;
+		margin-left: 280px;
 	}
 
 }
@@ -2911,7 +2965,7 @@ button:active,
 	}
 
 	#main section.cover {
-		padding: 5em 0;
+		padding: 4.75em 0;
 	}
 
 }
@@ -2948,7 +3002,7 @@ button:active,
 	/* Header */
 
 	#header {
-		width: 20%;
+		width: 19%;
 	}
 
 	#logo .image {
@@ -2975,13 +3029,13 @@ button:active,
 	/* Footer */
 
 	#footer {
-		margin-left: 20%;
+		margin-left: 19%;
 	}
 
 	/* Main */
 
 	#main {
-		margin-left: 20%;
+		margin-left: 19%;
 	}
 
 }
