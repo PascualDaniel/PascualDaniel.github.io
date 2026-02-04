@@ -1,0 +1,245 @@
+<html>
+
+<head>
+	<title>Daniel Pascual</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<style>
+		.image.main img {
+			margin: 10px auto;
+			display: block;
+			width: 70%;
+			height: auto;
+		}
+
+		.highlight-link {
+			color: #14006e;
+			font-weight: bold;
+		}
+
+		.mask-hero {
+			text-align: center;
+		}
+
+		.sprite-viewer {
+			margin-top: 30px;
+			padding: 20px;
+			border-radius: 18px;
+			background: #f4f1ff;
+			box-shadow: 0 0 24px rgba(20, 0, 110, 0.15);
+		}
+
+		.sprite-controls {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 16px;
+			margin-top: 16px;
+		}
+
+		.sprite-controls label {
+			font-weight: bold;
+			color: #14006e;
+			display: block;
+			margin-bottom: 6px;
+		}
+
+		.sprite-controls select,
+		.sprite-controls input[type="range"],
+		.sprite-controls button {
+			width: 100%;
+		}
+
+		.sprite-controls button {
+			background: #14006e;
+			color: #fff;
+			border: none;
+			padding: 10px 14px;
+			border-radius: 10px;
+			font-weight: 600;
+			cursor: pointer;
+		}
+
+		.sprite-controls button:hover {
+			background: #2c1aa8;
+		}
+
+		.sprite-canvas-wrap {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+
+		#mask-sprite-canvas {
+			width: 100%;
+			max-width: 540px;
+			height: 360px;
+			border-radius: 16px;
+			background: #0f0b2b;
+		}
+
+		.sprite-meta {
+			font-size: 0.95em;
+			color: #2b2b2b;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<div id="header">
+
+		<div class="top">
+
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+				<h1 id="title">Daniel Pascual</h1>
+				<p>Software Engineer</p>
+			</div>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
+					</li>
+					<li><a href="https://github.com/PascualDaniel" id="project-link"><span
+								class="icon solid fa-code">This Project</span></a></li>
+					<li><a href="https://alberte-diaz.itch.io/mask-heist" id="itchio-link"><span
+								class="icon solid fa-gamepad">Play on itch.io</span></a></li>
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom">
+			<!-- Social Icons -->
+			<ul class="icons">
+				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span
+							class="label">Twitter</span></a></li>
+				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a>
+				</li>
+				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span
+							class="label">Github</span></a></li>
+				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
+							class="label">linkedin</span></a></li>
+				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
+							class="label">Email</span></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+
+		<section id="top" class="one dark cover">
+			<div class="container mask-hero">
+				<header>
+					<h2 class="alt"><strong>Mask Heist</strong></h2>
+					<p>A Global Game Jam heist game where every stolen mask grants a new power.</p>
+				</header>
+			</div>
+		</section>
+
+		<section class="post">
+			<header>
+				<h2>Mask Heist - Global Game Jam 2024</h2>
+			</header>
+			<p>
+				<strong>Mask Heist</strong> is a stealthy, fast-paced heist game built for Global Game Jam. You play as a
+				thief infiltrating a museum where every mask you collect transforms your abilities—turning stealth into
+				speed, shadow tricks, or powerful escapes.
+			</p>
+			<p>
+				I created all of the pixel art, supported the technical art pipeline, and produced the team throughout
+				the jam. The art direction leans into moody museum lighting and bold silhouettes, while the mask designs
+				showcase each new power.
+			</p>
+			<p>
+				Play the game on itch.io:
+				<a href="https://alberte-diaz.itch.io/mask-heist" class="highlight-link">Mask Heist on itch.io</a>.
+				<br>
+				<iframe frameborder="0"
+					src="https://itch.io/embed/2862695?border_width=2&amp;bg_color=14006e&amp;fg_color=ffffff&amp;link_color=fd7c03"
+					width="554" height="169"><a href="https://alberte-diaz.itch.io/mask-heist">Mask Heist by Alberte
+						Díaz</a></iframe>
+			</p>
+
+			<h3>My Contribution</h3>
+			<ul>
+				<li>Produced the team and coordinated the jam schedule.</li>
+				<li>Created all pixel art assets, including masks, characters, and UI elements.</li>
+				<li>Supported the tech art workflow and asset integration.</li>
+			</ul>
+
+			<p>Selected art highlights from the project:</p>
+			<div class="image main">
+				<img src="../images/Mask/Logo.png" alt="Mask Heist logo">
+				<img src="../images/Mask/Mask1.png" alt="Mask Heist mask design 1">
+				<img src="../images/Mask/Mask2.png" alt="Mask Heist mask design 2">
+				<img src="../images/Mask/Guard.png" alt="Mask Heist guard sprite">
+				<img src="../images/Mask/ThiefSheet.png" alt="Mask Heist thief sprite sheet">
+			</div>
+
+			<h3>Sprite Sheet Viewer (Three.js)</h3>
+			<p>
+				Explore the sprite sheets and row-based animations from the jam. Each row is a different animation, and the
+				lengths are defined in the JSON metadata files stored alongside the art.
+			</p>
+
+			<div class="sprite-viewer">
+				<div class="sprite-canvas-wrap">
+					<canvas id="mask-sprite-canvas" aria-label="Mask Heist sprite viewer"></canvas>
+					<p class="sprite-meta" id="sprite-meta">Loading sprite sheet data...</p>
+				</div>
+				<div class="sprite-controls">
+					<div>
+						<label for="sprite-sheet-select">Sprite Sheet</label>
+						<select id="sprite-sheet-select"></select>
+					</div>
+					<div>
+						<label for="sprite-animation-select">Animation</label>
+						<select id="sprite-animation-select"></select>
+					</div>
+					<div>
+						<label for="sprite-fps">Animation Speed (FPS)</label>
+						<input type="range" id="sprite-fps" min="2" max="24" value="10" />
+					</div>
+					<div>
+						<label for="sprite-scale">Zoom</label>
+						<input type="range" id="sprite-scale" min="1" max="4" step="0.5" value="2" />
+					</div>
+					<div>
+						<label>&nbsp;</label>
+						<button type="button" id="sprite-toggle">Pause</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+		<ul class="copyright">
+			<li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.scrolly.min.js"></script>
+	<script src="../assets/js/jquery.scrollex.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+	<script type="module" src="../assets/js/mask-heist-viewer.js"></script>
+
+</body>
+
+</html>
