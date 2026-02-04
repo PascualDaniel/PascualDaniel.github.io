@@ -1,0 +1,11 @@
+{
+  "name": "Guard",
+  "image": "images/pixel-Art/Guard.png",
+  "frameWidth": 64,
+  "frameHeight": 64,
+  "animations": [
+    { "name": "Idle", "row": 0, "frames": 5, "fps": 8 },
+    { "name": "Walk", "row": 1, "frames": 4, "fps": 10 },
+    { "name": "Alert", "row": 2, "frames": 3, "fps": 12 }
+  ]
+}

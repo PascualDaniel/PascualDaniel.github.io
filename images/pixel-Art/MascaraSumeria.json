@@ -1,0 +1,9 @@
+{
+  "name": "Sumerian Mask",
+  "image": "images/pixel-Art/MascaraSumeria.png",
+  "frameWidth": 64,
+  "frameHeight": 80,
+  "animations": [
+    { "name": "Float", "row": 0, "frames": 1, "fps": 6 }
+  ]
+}
