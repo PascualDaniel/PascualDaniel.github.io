@@ -3269,13 +3269,12 @@ button:active,
 /* Keep #main flush to top (prevents persistent white gap at medium widths).
    Only add top padding when header is in scrolled state (visible background).
    Uses sibling selector so it overrides media-specific padding values. */
+/* Keep #main flush to top (prevents persistent white gap at medium widths).
+   Avoid changing layout on header state changes to prevent scroll jumps. */
 #header + #main {
 	padding-top: 0 !important;
 }
-#header.header--scrolled + #main,
-#header.header-scrolled + #main {
-	padding-top: 6em !important; /* restore space when header background becomes visible */
-}
+/* Do not modify #main padding when header becomes scrolled; header overlays content instead to avoid layout reflow and scroll teleporting. */
 
 /* Support both class naming variants for scrolled state */
 #header.header--scrolled,
