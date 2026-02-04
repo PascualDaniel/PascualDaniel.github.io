@@ -1,9 +1,13 @@
 {
   "name": "Sumerian Mask",
   "image": "images/pixel-Art/MascaraSumeria.png",
-  "frameWidth": 64,
-  "frameHeight": 80,
+  "frameWidth": 16,
+  "frameHeight": 16,
   "animations": [
-    { "name": "Float", "row": 0, "frames": 1, "fps": 6 }
+    { "name": "Yare", "row": 4, "frames": 4, "fps": 1 },
+    { "name": "Egipt", "row": 3, "frames": 4, "fps": 1 },
+    { "name": "Anansi", "row": 2, "frames": 4, "fps": 1 },
+    { "name": "Jester", "row": 1, "frames": 4, "fps": 1 }, 
+    { "name": "Humbaba", "row": 0, "frames": 4, "fps": 1 }
   ]
 }

@@ -4,12 +4,12 @@
   "frameWidth": 64,
   "frameHeight": 64,
   "animations": [
-    { "name": "Idle", "row": 0, "frames": 10, "fps": 8 },
-    { "name": "Walk", "row": 1, "frames": 12, "fps": 10 },
-    { "name": "Sneak", "row": 2, "frames": 8, "fps": 10 },
-    { "name": "Dash", "row": 3, "frames": 9, "fps": 12 },
-    { "name": "Pickup", "row": 4, "frames": 7, "fps": 8 },
-    { "name": "Climb", "row": 5, "frames": 6, "fps": 10 },
-    { "name": "Celebrate", "row": 6, "frames": 5, "fps": 12 }
+    { "name": "Interact", "row": 6, "frames": 4, "fps": 8 },
+    { "name": "Dash", "row": 5, "frames": 5, "fps": 10 },
+    { "name": "Hook", "row": 4, "frames": 8, "fps": 10 },
+    { "name": "Jump", "row": 3, "frames": 12, "fps": 12 },
+    { "name": "Walk", "row": 2, "frames": 8, "fps": 8 },
+    { "name": "Idle", "row": 1, "frames": 3, "fps": 10 },
+    { "name": "Mask Swap", "row": 0, "frames": 5, "fps": 12 }
   ]
 }

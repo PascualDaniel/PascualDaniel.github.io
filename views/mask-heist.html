@@ -68,15 +68,19 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 10px;
+			gap: 12px;
 		}
 
 		#mask-sprite-canvas {
 			width: 100%;
-			max-width: 540px;
-			height: 360px;
+			max-width: 640px;
+			/* Responsive canvas using aspect ratio (falls back gracefully) */
+			height: auto;
+			aspect-ratio: 3 / 2;
 			border-radius: 16px;
-			background: #0f0b2b;
+			background: linear-gradient(180deg, #0f0b2b 0%, #1b1538 100%);
+			box-shadow: 0 14px 36px rgba(15, 12, 41, 0.28);
+			border: 1px solid rgba(255,255,255,0.04);
 		}
 
 		.sprite-meta {
@@ -84,6 +88,7 @@
 			color: #2b2b2b;
 			text-align: center;
 		}
+
 	</style>
 </head>
 
@@ -149,9 +154,10 @@
 			<header>
 				<h2>Mask Heist - Global Game Jam 2024</h2>
 			</header>
+			<div class="project-list">
 			<p>
 				<strong>Mask Heist</strong> is a stealthy, fast-paced heist game built for Global Game Jam. You play as a
-				thief infiltrating a museum where every mask you collect transforms your abilities—turning stealth into
+				thief infiltrating a museum where every mask you collect transforms your abilities turning stealth into
 				speed, shadow tricks, or powerful escapes.
 			</p>
 			<p>
@@ -163,34 +169,31 @@
 				Play the game on itch.io:
 				<a href="https://alberte-diaz.itch.io/mask-heist" class="highlight-link">Mask Heist on itch.io</a>.
 				<br>
-				<iframe frameborder="0"
-					src="https://itch.io/embed/2862695?border_width=2&amp;bg_color=14006e&amp;fg_color=ffffff&amp;link_color=fd7c03"
-					width="554" height="169"><a href="https://alberte-diaz.itch.io/mask-heist">Mask Heist by Alberte
-						Díaz</a></iframe>
+				
 			</p>
-
+</div>
 			<h3>My Contribution</h3>
+				<div class="project-list">
 			<ul>
 				<li>Produced the team and coordinated the jam schedule.</li>
 				<li>Created all pixel art assets, including masks, characters, and UI elements.</li>
 				<li>Supported the tech art workflow and asset integration.</li>
 			</ul>
-
+</div>
 			<p>Selected art highlights from the project:</p>
 			<div class="image main">
-				<img src="../images/Mask/Logo.png" alt="Mask Heist logo">
-				<img src="../images/Mask/Mask1.png" alt="Mask Heist mask design 1">
+							<img src="../images/Mask/Mask1.png" alt="Mask Heist mask design 1">
 				<img src="../images/Mask/Mask2.png" alt="Mask Heist mask design 2">
-				<img src="../images/Mask/Guard.png" alt="Mask Heist guard sprite">
-				<img src="../images/Mask/ThiefSheet.png" alt="Mask Heist thief sprite sheet">
+
 			</div>
 
-			<h3>Sprite Sheet Viewer (Three.js)</h3>
+			<h3>Sprite Sheet Viewer</h3>
+			<div class="project-list">
 			<p>
 				Explore the sprite sheets and row-based animations from the jam. Each row is a different animation, and the
 				lengths are defined in the JSON metadata files stored alongside the art.
 			</p>
-
+</div>
 			<div class="sprite-viewer">
 				<div class="sprite-canvas-wrap">
 					<canvas id="mask-sprite-canvas" aria-label="Mask Heist sprite viewer"></canvas>
@@ -211,7 +214,7 @@
 					</div>
 					<div>
 						<label for="sprite-scale">Zoom</label>
-						<input type="range" id="sprite-scale" min="1" max="4" step="0.5" value="2" />
+						<input type="range" id="sprite-scale" min="1" max="6" step="1" value="2" />
 					</div>
 					<div>
 						<label>&nbsp;</label>

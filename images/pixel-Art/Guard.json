@@ -4,8 +4,8 @@
   "frameWidth": 64,
   "frameHeight": 64,
   "animations": [
-    { "name": "Idle", "row": 0, "frames": 5, "fps": 8 },
-    { "name": "Walk", "row": 1, "frames": 4, "fps": 10 },
-    { "name": "Alert", "row": 2, "frames": 3, "fps": 12 }
+    { "name": "Idle", "row": 2, "frames": 2, "fps": 2 },
+    { "name": "Walk", "row": 1, "frames": 5, "fps": 4 },
+    { "name": "Attack", "row": 0, "frames": 5, "fps": 4 }
   ]
 }

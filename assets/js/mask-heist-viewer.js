@@ -18,6 +18,12 @@ if (canvas) {
 
 	const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+	// Ensure colors are displayed with proper sRGB gamma for correct pixel art colors
+	if ('outputColorSpace' in renderer) {
+		renderer.outputColorSpace = THREE.SRGBColorSpace;
+	} else {
+		renderer.outputEncoding = THREE.sRGBEncoding;
+	}
 
 	const scene = new THREE.Scene();
 	const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -40,8 +46,17 @@ if (canvas) {
 	let rows = 1;
 
 	const setCanvasSize = () => {
+		// Use the canvas container width and enforce the sprite frame aspect ratio when known
 		const rect = canvas.getBoundingClientRect();
-		renderer.setSize(rect.width, rect.height, false);
+		let width = Math.floor(rect.width);
+		let height = Math.floor(rect.height);
+		if (currentMeta) {
+			const aspect = currentMeta.frameWidth / currentMeta.frameHeight;
+			// compute height based on width to match sprite frame aspect
+			height = Math.max(1, Math.round(width / aspect));
+			canvas.style.height = `${height}px`;
+		}
+		renderer.setSize(width, height, false);
 	};
 
 	const updateTextureFrame = () => {
@@ -56,10 +71,13 @@ if (canvas) {
 		planeMaterial.map.repeat.set(1 / columns, 1 / rows);
 		const columnIndex = currentFrame % columns;
 		const rowIndex = currentAnimation.row;
+		// Compute vOffset so it works regardless of texture.flipY (some images use top-left origin)
+		const vOffset = planeMaterial.map.flipY ? (rowIndex / rows) : (1 - (rowIndex + 1) / rows);
 		planeMaterial.map.offset.set(
 			columnIndex / columns,
-			1 - (rowIndex + 1) / rows
+			vOffset
 		);
+		planeMaterial.map.needsUpdate = true;
 	};
 
 	const updatePlaneScale = () => {
@@ -102,7 +120,10 @@ if (canvas) {
 					texture.minFilter = THREE.NearestFilter;
 					texture.wrapS = THREE.ClampToEdgeWrapping;
 					texture.wrapT = THREE.ClampToEdgeWrapping;
-					texture.flipY = false;
+				// disable mipmaps so the nearest filter stays crisp when scaled
+				texture.generateMipmaps = false;
+				texture.encoding = THREE.sRGBEncoding; // ensure correct color space for pixel art
+				texture.needsUpdate = true;
 					planeMaterial.map = texture;
 					planeMaterial.needsUpdate = true;
 					updatePlaneScale();
