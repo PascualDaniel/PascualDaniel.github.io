@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Raymarching Lab - Daniel Pascual</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Courier New', monospace;
+			background: #0a0e27;
+			color: #fff;
+			overflow: hidden;
+		}
+
+		#canvas {
+			display: block;
+			width: 100%;
+			height: 100vh;
+		}
+
+		.ui-panel {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			background: rgba(10, 14, 39, 0.95);
+			border: 2px solid #00ff88;
+			border-radius: 8px;
+			padding: 20px;
+			max-width: 350px;
+			box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+			font-size: 13px;
+		}
+
+		.ui-panel h2 {
+			color: #00ff88;
+			margin-bottom: 15px;
+			font-size: 1.3em;
+			text-shadow: 0 0 10px #00ff88;
+		}
+
+		.ui-section {
+			margin-bottom: 15px;
+			padding-bottom: 15px;
+			border-bottom: 1px solid #00ff8844;
+		}
+
+		.ui-section:last-child {
+			border-bottom: none;
+		}
+
+		.control-group {
+			margin-bottom: 12px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			color: #00ff88;
+			font-weight: bold;
+		}
+
+		input[type="range"] {
+			width: 100%;
+			height: 6px;
+			border-radius: 3px;
+			background: #1a1f3a;
+			outline: none;
+			-webkit-appearance: none;
+		}
+
+		input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background: #00ff88;
+			cursor: pointer;
+			box-shadow: 0 0 8px #00ff88;
+		}
+
+		input[type="range"]::-moz-range-thumb {
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background: #00ff88;
+			cursor: pointer;
+			border: none;
+			box-shadow: 0 0 8px #00ff88;
+		}
+
+		.value-display {
+			color: #ffb700;
+			font-size: 12px;
+			margin-top: 3px;
+		}
+
+		button {
+			width: 100%;
+			padding: 10px;
+			margin: 5px 0;
+			background: #00ff88;
+			color: #0a0e27;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+			font-family: 'Courier New', monospace;
+			transition: all 0.3s;
+		}
+
+		button:hover {
+			background: #00ff88dd;
+			box-shadow: 0 0 15px #00ff88;
+		}
+
+		button.active {
+			background: #ffb700;
+			color: #0a0e27;
+			box-shadow: 0 0 15px #ffb700;
+		}
+
+		.info {
+			color: #aaa;
+			font-size: 12px;
+			line-height: 1.6;
+			margin-top: 10px;
+			background: #1a1f3a;
+			padding: 10px;
+			border-radius: 4px;
+		}
+
+		.stats {
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+			background: rgba(10, 14, 39, 0.95);
+			border: 2px solid #ff5500;
+			border-radius: 8px;
+			padding: 15px;
+			font-size: 12px;
+			color: #ff5500;
+		}
+
+		.stat-line {
+			margin: 5px 0;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+
+	<div class="ui-panel">
+		<h2>⚡ Raymarching Lab</h2>
+
+		<div class="ui-section">
+			<div class="control-group">
+				<label>Scene</label>
+				<button class="scene-btn active" data-scene="mandelbulb">Mandelbulb</button>
+				<button class="scene-btn" data-scene="menger">Menger Sponge</button>
+				<button class="scene-btn" data-scene="spheres">Spheres</button>
+				<button class="scene-btn" data-scene="torus">Torus Nest</button>
+			</div>
+		</div>
+
+		<div class="ui-section">
+			<div class="control-group">
+				<label>Zoom: <span id="zoomVal">1.0</span></label>
+				<input type="range" id="zoomSlider" min="0.1" max="5" step="0.1" value="1">
+				<div class="value-display" id="zoomDisplay"></div>
+			</div>
+
+			<div class="control-group">
+				<label>Iterations: <span id="iterVal">64</span></label>
+				<input type="range" id="iterSlider" min="16" max="256" step="16" value="64">
+				<div class="value-display" id="iterDisplay"></div>
+			</div>
+
+			<div class="control-group">
+				<label>Iterations Detail: <span id="detailVal">32</span></label>
+				<input type="range" id="detailSlider" min="8" max="128" step="8" value="32">
+				<div class="value-display" id="detailDisplay"></div>
+			</div>
+
+			<div class="control-group">
+				<label>Lighting Intensity: <span id="lightVal">1.0</span></label>
+				<input type="range" id="lightSlider" min="0.2" max="3" step="0.2" value="1">
+				<div class="value-display" id="lightDisplay"></div>
+			</div>
+		</div>
+
+		<div class="ui-section">
+			<div class="info">
+				<strong>Controls:</strong><br>
+				🖱️ Drag to rotate<br>
+				🔄 Scroll to zoom<br>
+				⌨️ WASD to move
+			</div>
+		</div>
+
+		<div class="ui-section">
+			<div class="info">
+				<strong>Performance Tips:</strong><br>
+				• Lower iterations for smoother fps<br>
+				• Reduce detail for real-time rotation
+			</div>
+		</div>
+	</div>
+
+	<div class="stats">
+		<div class="stat-line">FPS: <span id="fps">0</span></div>
+		<div class="stat-line">Scene: <span id="sceneLabel">Mandelbulb</span></div>
+	</div>
+
+	<script type="module">
+		import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
+
+		const canvas = document.getElementById('canvas');
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+		
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+		camera.position.z = 3;
+
+		// UI State
+		let uiState = {
+			scene: 'mandelbulb',
+			zoom: 1.0,
+			iterations: 64,
+			detail: 32,
+			lightIntensity: 1.0,
+			camX: 0,
+			camY: 0,
+			camZ: 3,
+			rotX: 0,
+			rotY: 0
+		};
+
+		// Input handling
+		const keys = {};
+		const mouse = { x: 0, y: 0, down: false, lastX: 0, lastY: 0 };
+
+		window.addEventListener('keydown', (e) => keys[e.key.toLowerCase()] = true);
+		window.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
+		window.addEventListener('mousemove', (e) => {
+			mouse.x = e.clientX;
+			mouse.y = e.clientY;
+			if (mouse.down) {
+				uiState.rotY += (e.clientX - mouse.lastX) * 0.005;
+				uiState.rotX += (e.clientY - mouse.lastY) * 0.005;
+			}
+			mouse.lastX = e.clientX;
+			mouse.lastY = e.clientY;
+		});
+		window.addEventListener('mousedown', () => mouse.down = true);
+		window.addEventListener('mouseup', () => mouse.down = false);
+		window.addEventListener('wheel', (e) => {
+			e.preventDefault();
+			uiState.zoom *= (1 - e.deltaY * 0.001);
+			uiState.zoom = Math.max(0.1, Math.min(5, uiState.zoom));
+		});
+
+		// Update UI controls
+		document.getElementById('zoomSlider').addEventListener('input', (e) => {
+			uiState.zoom = parseFloat(e.target.value);
+			document.getElementById('zoomVal').textContent = uiState.zoom.toFixed(2);
+		});
+
+		document.getElementById('iterSlider').addEventListener('input', (e) => {
+			uiState.iterations = parseInt(e.target.value);
+			document.getElementById('iterVal').textContent = uiState.iterations;
+		});
+
+		document.getElementById('detailSlider').addEventListener('input', (e) => {
+			uiState.detail = parseInt(e.target.value);
+			document.getElementById('detailVal').textContent = uiState.detail;
+		});
+
+		document.getElementById('lightSlider').addEventListener('input', (e) => {
+			uiState.lightIntensity = parseFloat(e.target.value);
+			document.getElementById('lightVal').textContent = uiState.lightIntensity.toFixed(2);
+		});
+
+		document.querySelectorAll('.scene-btn').forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+				e.target.classList.add('active');
+				uiState.scene = e.target.dataset.scene;
+				document.getElementById('sceneLabel').textContent = 
+					e.target.textContent.trim();
+			});
+		});
+
+		// Raymarching shaders
+		const shaderCode = {
+			vertex: `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = vec4(position, 1.0);
+				}
+			`,
+			fragment: `
+				uniform float uTime;
+				uniform float uZoom;
+				uniform int uIterations;
+				uniform int uDetail;
+				uniform float uLightIntensity;
+				uniform int uScene;
+				uniform float uRotX;
+				uniform float uRotY;
+				varying vec2 vUv;
+
+				#define MAX_STEPS 256
+				#define MAX_DIST 100.0
+				#define SURF_DIST 0.001
+
+				mat3 rotX(float a) {
+					return mat3(1,0,0, 0,cos(a),-sin(a), 0,sin(a),cos(a));
+				}
+				mat3 rotY(float a) {
+					return mat3(cos(a),0,sin(a), 0,1,0, -sin(a),0,cos(a));
+				}
+
+				// Mandelbulb
+				float mandelbulb(vec3 p) {
+					vec3 z = p;
+					float dr = 1.0;
+					float r = 0.0;
+					
+					for(int i = 0; i < 16; i++) {
+						r = length(z);
+						if(r > 2.0) break;
+						
+						float theta = acos(z.z/r) * 8.0;
+						float phi = atan(z.y, z.x) * 8.0;
+						dr = pow(r, 7.0) * 8.0 * dr + 1.0;
+						
+						float zr = pow(r, 8.0);
+						z = p + zr * vec3(sin(theta)*cos(phi), sin(phi)*sin(theta), cos(theta));
+					}
+					return 0.5 * log(r) * r / dr;
+				}
+
+				// Menger Sponge
+				float mengerSponge(vec3 p) {
+					float d = length(p) - 0.5;
+					float scale = 1.0;
+					
+					for(int i = 0; i < 5; i++) {
+						vec3 a = mod(p * scale, 2.0) - 1.0;
+						scale *= 3.0;
+						vec3 r = 2.0 - 3.0 * abs(a);
+						float c = (min(r.x, min(r.y, r.z))) / scale;
+						d = max(d, c);
+					}
+					return d;
+				}
+
+				// Multiple Spheres
+				float spheres(vec3 p) {
+					float d = length(mod(p, 3.0) - 1.5) - 0.4;
+					return d;
+				}
+
+				// Torus Nest
+				float torusNest(vec3 p) {
+					float d = 999.0;
+					for(int i = 1; i <= 3; i++) {
+						float scale = float(i) * 0.5;
+						vec3 pp = p / scale;
+						float q = length(vec2(length(pp.xz) - 1.5, pp.y)) - 0.3;
+						d = min(d, q * scale);
+					}
+					return d;
+				}
+
+				float map(vec3 p) {
+					if(uScene == 1) return mengerSponge(p * 0.6);
+					if(uScene == 2) return spheres(p);
+					if(uScene == 3) return torusNest(p);
+					return mandelbulb(p * 0.5);
+				}
+
+				vec3 getNormal(vec3 p) {
+					float eps = 0.001;
+					float d = map(p);
+					vec3 n = d - vec3(
+						map(p-vec3(eps,0,0)),
+						map(p-vec3(0,eps,0)),
+						map(p-vec3(0,0,eps))
+					);
+					return normalize(n);
+				}
+
+				vec4 raymarch(vec3 ro, vec3 rd) {
+					float dO = 0.0;
+					
+					for(int i = 0; i < MAX_STEPS; i++) {
+						vec3 p = ro + rd * dO;
+						float dS = map(p);
+						dO += dS * 0.7;
+						
+						if(dS < SURF_DIST || dO > MAX_DIST) {
+							if(dS < SURF_DIST) {
+								vec3 n = getNormal(p);
+								float light = dot(n, normalize(vec3(1,1,1))) * 0.5 + 0.5;
+								light *= uLightIntensity;
+								vec3 col = mix(vec3(0.1, 0.3, 0.8), vec3(1.0, 0.6, 0.2), light);
+								return vec4(col, 1.0);
+							}
+							break;
+						}
+					}
+					
+					// Background
+					return vec4(0.05, 0.08, 0.15, 1.0);
+				}
+
+				void main() {
+					vec2 uv = vUv * 2.0 - 1.0;
+					uv.x *= 16.0 / 9.0;
+					
+					vec3 ro = vec3(0, 0, 2.5 / uZoom);
+					ro = rotX(uRotX) * rotY(uRotY) * ro;
+					
+					vec3 rd = normalize(vec3(uv, -1.0));
+					rd = rotX(uRotX) * rotY(uRotY) * rd;
+					
+					vec4 col = raymarch(ro, rd);
+					
+					// Post-processing
+					col.rgb = pow(col.rgb, vec3(2.2));
+					col.rgb += vec3(0.1, 0.05, 0.2) * (1.0 - length(uv) * 0.2);
+					
+					gl_FragColor = col;
+				}
+			`
+		};
+
+		const material = new THREE.ShaderMaterial({
+			uniforms: {
+				uTime: { value: 0 },
+				uZoom: { value: uiState.zoom },
+				uIterations: { value: uiState.iterations },
+				uDetail: { value: uiState.detail },
+				uLightIntensity: { value: uiState.lightIntensity },
+				uScene: { value: 0 },
+				uRotX: { value: uiState.rotX },
+				uRotY: { value: uiState.rotY }
+			},
+			vertexShader: shaderCode.vertex,
+			fragmentShader: shaderCode.fragment
+		});
+
+		const geometry = new THREE.PlaneGeometry(2, 2);
+		const mesh = new THREE.Mesh(geometry, material);
+		scene.add(mesh);
+
+		// FPS counter
+		let lastTime = performance.now();
+		let frameCount = 0;
+
+		const animate = () => {
+			requestAnimationFrame(animate);
+
+			const now = performance.now();
+			frameCount++;
+
+			if (now >= lastTime + 1000) {
+				document.getElementById('fps').textContent = frameCount;
+				frameCount = 0;
+				lastTime = now;
+			}
+
+			// Camera movement
+			const speed = 0.05;
+			if (keys['w']) uiState.camZ -= speed;
+			if (keys['s']) uiState.camZ += speed;
+			if (keys['a']) uiState.camX -= speed;
+			if (keys['d']) uiState.camX += speed;
+
+			// Update uniforms
+			material.uniforms.uTime.value += 0.016;
+			material.uniforms.uZoom.value = uiState.zoom;
+			material.uniforms.uIterations.value = uiState.iterations;
+			material.uniforms.uDetail.value = uiState.detail;
+			material.uniforms.uLightIntensity.value = uiState.lightIntensity;
+			material.uniforms.uRotX.value = uiState.rotX;
+			material.uniforms.uRotY.value = uiState.rotY;
+
+			// Update scene index
+			const sceneMap = { mandelbulb: 0, menger: 1, spheres: 2, torus: 3 };
+			material.uniforms.uScene.value = sceneMap[uiState.scene];
+
+			renderer.render(scene, camera);
+		};
+
+		window.addEventListener('resize', () => {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		});
+
+		animate();
+	</script>
+</body>
+</html>
