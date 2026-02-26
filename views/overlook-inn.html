@@ -1,0 +1,172 @@
+<html>
+
+<head>
+	<title>Daniel Pascual</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<style>
+		.image.main img {
+			margin: 10px auto;
+			display: block;
+			width: 70%;
+			height: auto;
+		}
+
+		.highlight-link {
+			color: #14006e;
+			font-weight: bold;
+		}
+
+		.project-list ul {
+			margin-top: 0.5em;
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<div id="header">
+
+		<div class="top">
+
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+				<h1 id="title">Daniel Pascual</h1>
+				<p>Software Engineer</p>
+			</div>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
+					</li>
+					<li><a href="https://paxcu.itch.io/overlook-inn" id="itchio-link"><span
+								class="icon solid fa-gamepad">Play on itch.io</span></a></li>
+
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom">
+
+			<!-- Social Icons -->
+			<ul class="icons">
+				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+				<li><a href="danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+
+		</div>
+
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+
+		<section id="top" class="one dark cover">
+			<div class="container">
+				<header>
+					<h2 class="alt"><strong>Overlook Inn</strong></h2>
+				</header>
+			</div>
+		</section>
+
+		<section class="post">
+			<header>
+				<h2>Overlook Inn</h2>
+			</header>
+			<p>
+				Overlook Inn is one of my latest itch.io releases. I wanted this page to make it easier to find directly
+				from my portfolio and quickly jump into the game.
+			</p>
+			<p>
+				Play it here:
+				<a href="https://paxcu.itch.io/overlook-inn" class="highlight-link">Overlook Inn on itch.io</a>.
+			</p>
+			<p>
+				In this project I focused on the game feel and visual quality while keeping the web build lightweight and
+				responsive. Below is a quick breakdown of my main contributions.
+			</p>
+
+			<h3>What I worked on</h3>
+			<div class="project-list">
+				<ul>
+					<li>Postprocess shader setup for mood, readability, and stronger visual identity.</li>
+					<li>Lighting pass for atmosphere, contrast, and better depth separation.</li>
+					<li>Web optimization so the itch.io version loads faster and runs more smoothly.</li>
+				</ul>
+			</div>
+
+			<h3>Postprocess shaders</h3>
+			<p>
+				I implemented and tuned several postprocess effects to support the eerie tone of the inn and keep player
+				focus on gameplay-critical areas. The stack was balanced to avoid over-processing while still adding
+				cinematic quality.
+			</p>
+			<div class="project-list">
+				<ul>
+					<li>Color grading pass to establish a cohesive palette and mood.</li>
+					<li>Subtle vignette and contrast shaping to guide attention.</li>
+					<li>Bloom tuning for emissive elements without washing out the scene.</li>
+					<li>Final pass adjustments to preserve clarity on lower-end web devices.</li>
+				</ul>
+			</div>
+
+			<h3>Illumination and atmosphere</h3>
+			<p>
+				I built the illumination with a gameplay-first approach: dramatic enough to sell horror atmosphere, but clear
+				enough to read space, hazards, and interaction points.
+			</p>
+			<div class="project-list">
+				<ul>
+					<li>Key/fill/rim light balance to improve silhouette readability.</li>
+					<li>Localized lights to emphasize focal points and room storytelling.</li>
+					<li>Shadow and intensity tuning to keep dark zones tense but playable.</li>
+				</ul>
+			</div>
+
+			<h3>Web build optimization</h3>
+			<p>
+				For the web release, I reduced rendering and content costs to improve startup time and runtime stability,
+				especially on integrated GPUs and mid-range laptops.
+			</p>
+			<div class="project-list">
+				<ul>
+					<li>Reduced expensive postprocess settings where visual impact was minimal.</li>
+					<li>Asset and texture budget cleanup for faster loading.</li>
+					<li>General performance profiling and iteration to keep frame pacing stable.</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+
+		<!-- Copyright -->
+		<ul class="copyright">
+			<li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.scrolly.min.js"></script>
+	<script src="../assets/js/jquery.scrollex.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
