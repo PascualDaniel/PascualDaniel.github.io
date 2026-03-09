@@ -1,0 +1,158 @@
+<html>
+
+<head>
+    <title>Daniel Pascual</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <style>
+        .image.main img {
+            margin: 12px auto;
+            display: block;
+            width: min(78%, 920px);
+            height: auto;
+        }
+
+        .highlight-link {
+            color: #14006e;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="is-preload view-page">
+
+    <!-- Header -->
+    <div id="header">
+
+        <div class="top">
+
+            <!-- Logo -->
+            <div id="logo">
+                <span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+                <h1 id="title">Daniel Pascual</h1>
+                <p>Software Engineer</p>
+            </div>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+                    <li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
+                    <li><a href="https://github.com/PascualDaniel/HexTurn" id="project-link"><span
+                                class="icon solid fa-code">This Project</span></a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="bottom">
+
+            <!-- Social Icons -->
+            <ul class="icons">
+                <li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+                <li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+                <li><a href="danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+        <section id="top" class="one dark cover">
+            <div class="container">
+
+                <header>
+                    <h2 class="alt"><strong>Custom Animator Tool</strong></h2>
+                </header>
+
+            </div>
+        </section>
+
+        <section class="post">
+            <header>
+                <h2>My Custom Animator for HexTurn</h2>
+            </header>
+
+            <p>
+                This is a custom animation system and editor tool I built in Unity for my project
+                <a href="https://github.com/PascualDaniel/HexTurn" class="highlight-link">HexTurn</a>.
+                Instead of using a large controller setup, I created a focused workflow for sprite-based state animations and transitions.
+            </p>
+
+            <p>
+                The system includes both an <strong>editor graph</strong> and a <strong>runtime animation player</strong>:
+            </p>
+
+            <div class="project-list">
+                <ul>
+                    <li>Visual graph editor window to create and manage animation states.</li>
+                    <li>Drag-and-connect transitions between states using Unity GraphView.</li>
+                    <li>Special <strong>Any</strong> node support for global transitions.</li>
+                    <li>State rename/delete handling with automatic transition updates.</li>
+                    <li>Default state management directly from the editor.</li>
+                    <li>Transition inspector with parameter, comparison, and threshold values.</li>
+                    <li>Curve offset for reverse transitions so graph links are readable.</li>
+                    <li>Runtime sprite playback with looping idle animations and one-shot clips.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-section">
+                <p>
+                    <strong>Why I built it:</strong> I wanted an animator workflow tailored to my game logic,
+                    with clear state control and faster iteration while designing exploration/combat visuals.
+                </p>
+            </div>
+
+            <p>Core scripts used in this tool:</p>
+            <div class="project-list">
+                <ul>
+                    <li><strong>ExplorationAnimatorWindow.cs</strong> - custom editor window and inspector panels.</li>
+                    <li><strong>AnimatorGraphView.cs</strong> - node graph, connections, selection and callbacks.</li>
+                    <li><strong>AnimatorStateNode.cs</strong> - editable state nodes with default-state feedback.</li>
+                    <li><strong>AnimatorEdge.cs</strong> - transition edge visuals and curved reverse links.</li>
+                    <li><strong>SpriteAnimationPlayer.cs</strong> - runtime frame playback (loop and play-once).</li>
+                </ul>
+            </div>
+
+            <p>Here are some screenshots of the custom animator workflow:</p>
+
+          	<div class="image main">
+                <img src="../images/HexTurn/Aniamato1.png" alt="Custom Animator Graph View">
+            
+                <img src="../images/HexTurn/animator2.png" alt="Custom Animator Inspector Panel">
+         
+                <img src="../images/HexTurn/animator3.png" alt="Transition Editing in Custom Animator">
+          
+         </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+
+        <!-- Copyright -->
+        <ul class="copyright">
+            <li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

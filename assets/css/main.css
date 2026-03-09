@@ -705,10 +705,58 @@ table {
 	/* Light yellow background for emphasis */
 	border-left: 4px solid #ffd700;
 	/* Golden border for visibility */
-	padding: 10px;
+	padding: 10px 12px;
 	margin: 20px 0;
-	font-weight: bold;
-	font-size: 1.1em;
+	font-weight: 400;
+	font-size: 0.98em;
+}
+
+/* Keep view pages readable without changing index layout too much */
+#main > section.post {
+	text-align: left;
+}
+
+section.post h1,
+section.post h2,
+section.post h3,
+section.post h4 {
+	text-align: center;
+}
+
+section.post > p,
+section.post > .highlight-section,
+section.post > .project-list {
+	max-width: 72ch;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+section.post ul,
+section.post ol {
+	max-width: 72ch;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+section.post > p {
+	font-size: 0.92em;
+	line-height: 1.65;
+}
+
+section.post .highlight-section p {
+	margin-bottom: 0;
+}
+
+section.post .image.main {
+	text-align: center;
+}
+
+section.post .image.main img,
+section.post .image.main video {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 br.clear {
@@ -827,7 +875,7 @@ br.clear {
 
 /* Hero top: responsive sizing */
 #top.one.dark.cover {
-	min-height: 45vh; /* larger hero for Three.js showcase */
+	min-height: 30vh;
 	height: auto;
 	/* ensure layout keeps canvas full-bleed */
 	display: flex;
@@ -840,7 +888,7 @@ br.clear {
 
 /* Slightly smaller hero on very small screens */
 @media screen and (max-width: 480px) {
-	#top.one.dark.cover { min-height: 38vh; }
+	#top.one.dark.cover { min-height: 24vh; }
 } 
 
 #top.one.dark.cover h2 {
@@ -858,6 +906,65 @@ br.clear {
 	text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
 	/* slightly reduced paragraph size */
 } 
+
+/* Shared cover layout for views pages only (index excluded). */
+body.view-page #top.one.dark.cover {
+	position: relative;
+	overflow: hidden;
+	text-align: left;
+}
+
+body.view-page #top.one.dark.cover .container {
+	position: relative;
+	z-index: 2;
+	max-width: 1100px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 100%;
+}
+
+body.view-page #top.one.dark.cover header {
+	text-align: left;
+	margin: 0;
+}
+
+body.view-page #top.one.dark.cover h2.alt {
+	font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+	line-height: 1.1;
+}
+
+body.view-page #top.one.dark.cover::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: min(52vw, 780px);
+	background-image: var(--cover-image, url("../../images/bannerFinal.png"));
+	background-size: cover;
+	background-position: center;
+	opacity: 0.42;
+	mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0));
+	-webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0));
+	pointer-events: none;
+	z-index: 1;
+}
+
+@media screen and (max-width: 736px) {
+	body.view-page #top.one.dark.cover .container {
+		justify-content: center;
+	}
+
+	body.view-page #top.one.dark.cover header {
+		text-align: center;
+	}
+
+	body.view-page #top.one.dark.cover::after {
+		width: 100%;
+		opacity: 0.3;
+	}
+}
 
 /* Container */
 
