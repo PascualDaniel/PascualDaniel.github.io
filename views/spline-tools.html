@@ -1,0 +1,277 @@
+<html>
+
+<head>
+    <title>Daniel Pascual</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <style>
+        .highlight-link {
+            color: #14006e;
+            font-weight: bold;
+        }
+
+        .tool-card {
+            margin: 1.5em 0;
+            padding: 1.2em;
+            border: 2px solid #1e90ff;
+            border-radius: 12px;
+            background: #f7fbff;
+            width: min(78%, 900px);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tool-card h3 {
+            margin-top: 0;
+        }
+
+        .tool-list ul {
+            margin-bottom: 0;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 1em;
+        }
+
+        .media-grid img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .tool-video {
+            margin-top: 1em;
+        }
+
+        .tool-video video {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .code-wrap {
+            margin-top: 1em;
+            background: #0f172a;
+            color: #dbeafe;
+            border-radius: 10px;
+            overflow-x: auto;
+            padding: 0.9em 1em;
+        }
+
+        .code-wrap pre {
+            margin: 0;
+            font-size: 0.92em;
+            line-height: 1.4;
+        }
+
+        @media screen and (max-width: 736px) {
+            .tool-card {
+                width: 100%;
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload view-page">
+
+    <div id="header">
+
+        <div class="top">
+
+            <div id="logo">
+                <span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+                <h1 id="title">Daniel Pascual</h1>
+                <p>Software Engineer</p>
+            </div>
+
+            <nav id="nav">
+                <ul>
+                    <li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+                    <li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
+                    <li><a href="https://github.com/PascualDaniel/HexTurn" id="project-link"><span class="icon solid fa-code">This Project</span></a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="bottom">
+            <ul class="icons">
+                <li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+                <li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+                <li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div id="main">
+
+        <section id="top" class="one dark cover">
+            <div class="container">
+                <header>
+                    <h2 class="alt"><strong>Spline Extruder Tool</strong></h2>
+                </header>
+            </div>
+        </section>
+
+        <section class="post">
+            <header>
+                <h2>Spline-Based Mesh Generation Utility</h2>
+            </header>
+
+            <p>
+                I built this editor tool to speed up level dressing and content generation in Unity.
+                It is focused on spline workflows so I can iterate quickly while keeping shape generation consistent.
+            </p>
+
+            <div class="tool-card">
+                <h3>1. Spline Extruder Window</h3>
+                <p>
+                    This tool generates a mesh strip from a spline. It samples position, tangent, and up vectors,
+                    then builds vertices and triangles along the curve.
+                </p>
+                <div class="media-grid">
+                    <img src="../images/spline-tools/Spline-Ui.png" alt="Spline extruder user interface">
+                    </div>
+                <div class="tool-list">
+                    <ul>
+                        <li>Creates a custom mesh directly from spline data.</li>
+                        <li>Configurable width and sampling resolution.</li>
+                        <li>Automatic UV and triangle generation.</li>
+                        <li>Creates a ready-to-render GameObject with MeshFilter and MeshRenderer.</li>
+                        <li>Supports undo for quick iteration in editor workflows.</li>
+                    </ul>
+                </div>
+                <div class="code-wrap">
+                    <pre><code>[MenuItem("Tools/Spline Extruder")]
+public static void ShowWindow()
+{
+    GetWindow&lt;SplineExtruderWindow&gt;("Spline Extruder");
+}
+
+if (GUILayout.Button("Generate Mesh"))
+{
+    if (spline != null)
+        GenerateMesh();
+}</code></pre>
+                </div>
+                <div class="tool-video">
+                    <video controls preload="metadata">
+                        <source src="../images/spline-tools/SplineTool.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3>Code - GenerateMesh()</h3>
+                <div class="code-wrap">
+                    <pre><code>private void GenerateMesh()
+{
+    var spl = spline.Spline;
+
+    List&lt;Vector3&gt; vertices = new();
+    List&lt;Vector2&gt; uvs = new();
+    List&lt;int&gt; triangles = new();
+
+    float totalLength = spl.GetLength();
+
+    for (int i = 0; i &lt;= resolution; i++)
+    {
+        float t = (float)i / resolution;
+
+        spl.Evaluate(t, out float3 posF, out float3 tanF, out float3 upF);
+
+        Vector3 pos = (Vector3)posF;
+        Vector3 tan = math.normalize((Vector3)tanF);
+        Vector3 up = math.normalize((Vector3)upF);
+
+        Vector3 right = Vector3.Cross(tan, up).normalized;
+
+        Vector3 leftPoint = pos - right * (width * 0.5f);
+        Vector3 rightPoint = pos + right * (width * 0.5f);
+
+        vertices.Add(leftPoint);
+        vertices.Add(rightPoint);
+
+        float uvX = (float)i / resolution;
+
+        uvs.Add(new Vector2(0, uvX));
+        uvs.Add(new Vector2(1, uvX));
+
+        if (i &lt; resolution)
+        {
+            int baseIndex = i * 2;
+
+            triangles.Add(baseIndex);
+            triangles.Add(baseIndex + 1);
+            triangles.Add(baseIndex + 3);
+
+            triangles.Add(baseIndex);
+            triangles.Add(baseIndex + 3);
+            triangles.Add(baseIndex + 2);
+        }
+    }
+
+    Mesh mesh = new Mesh();
+    mesh.name = spline.gameObject.name + "_ExtrudedMesh";
+
+    mesh.SetVertices(vertices);
+    mesh.SetUVs(0, uvs);
+    mesh.SetTriangles(triangles, 0);
+    mesh.RecalculateNormals();
+    mesh.RecalculateBounds();
+
+    GameObject meshObj = new GameObject(mesh.name);
+    meshObj.transform.SetParent(spline.transform);
+    meshObj.transform.localPosition = Vector3.zero;
+    meshObj.transform.localRotation = Quaternion.identity;
+
+    MeshFilter mf = meshObj.AddComponent&lt;MeshFilter&gt;();
+    MeshRenderer mr = meshObj.AddComponent&lt;MeshRenderer&gt;();
+
+    mf.sharedMesh = mesh;
+    mr.sharedMaterial = material != null ? material : new Material(Shader.Find("Standard"));
+
+    Undo.RegisterCreatedObjectUndo(meshObj, "Created Extruded Spline Mesh");
+}</code></pre>
+                </div>
+            </div>
+
+            <p>
+                This utility was built under the <strong>UbiJam</strong> namespace and is part of my broader Unity toolchain,
+                similar in spirit to the custom animation workflow shown in
+                <a href="custom-animator.html" class="highlight-link">my Custom Animator tool</a>.
+            </p>
+        </section>
+
+    </div>
+
+    <div id="footer">
+        <ul class="copyright">
+            <li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+    </div>
+
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
