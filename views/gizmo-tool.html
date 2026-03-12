@@ -1,0 +1,193 @@
+<html>
+
+<head>
+    <title>Daniel Pascual</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <style>
+        .image.main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image.main img {
+            margin: 12px 0;
+            display: block;
+            width: min(78%, 920px);
+            height: auto;
+        }
+
+        .highlight-link {
+            color: #14006e;
+            font-weight: bold;
+        }
+
+        .video-showcase {
+            margin-top: 1.5em;
+        }
+
+        .video-showcase h3 {
+            margin-bottom: 0.5em;
+        }
+
+        .video-showcase video {
+            margin: 12px auto;
+            display: block;
+            width: min(78%, 920px);
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body class="is-preload view-page">
+
+    <!-- Header -->
+    <div id="header">
+
+        <div class="top">
+
+            <!-- Logo -->
+            <div id="logo">
+                <span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+                <h1 id="title">Daniel Pascual</h1>
+                <p>Software Engineer</p>
+            </div>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+                    <li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
+                    <li><a href="https://github.com/PascualDaniel/Tools" id="project-link"><span
+                                class="icon solid fa-code">This Project</span></a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="bottom">
+
+            <!-- Social Icons -->
+            <ul class="icons">
+                <li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+                <li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                <li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
+                <li><a href="danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+        <section id="top" class="one dark cover">
+            <div class="container">
+
+                <header>
+                    <h2 class="alt"><strong>Unity Runtime Gizmo Tool</strong></h2>
+                </header>
+
+            </div>
+        </section>
+
+        <section class="post">
+            <header>
+                <h2>Custom Attribute-Driven Gizmo System</h2>
+            </header>
+
+            <div class="video-showcase">
+                <h3>Tool Usage Video</h3>
+                <video controls preload="metadata">
+                    <source src="../images/Tools/ToolUse.mp4" type="video/mp4" >
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p>
+                <br>
+                This is a Unity editor/runtime tooling project where I built a <strong>custom gizmo system</strong> to visualize gameplay data directly in Scene View.
+                The goal was to reuse in diferent projects and reduce debugging time by drawing ranges, directions, volumes, and labels from normal fields using attributes.
+            </p>
+
+            <p>
+                The workflow is based on <strong>attributes + renderer cache + debug window</strong>, so setup is simple and iteration is fast.
+            </p>
+
+            <div class="project-list">
+                <ul>
+                    <li>Attribute-driven setup: add annotations like DrawRadius, DrawCube, DrawArea, DrawLine, DrawShape, and DrawLabel on fields.</li>
+                    <li>Automatic scene scanning: RuntimeGizmoRenderer reflects MonoBehaviours and caches compatible fields.</li>
+                    <li>Shape support: line, cube, radius disc, sphere discs, and labels.</li>
+                    <li>Configurable behavior per field: world/local space, transform rotation usage, and usage mode (size, direction, offset).</li>
+                    <li>Live values from fields: float/double/vector/bounds values are interpreted and visualized automatically.</li>
+                    <li>Editor control panel: Gizmo Debugger window with global and per-field toggles plus color preview.</li>
+                    <li>Play mode control: each attribute can decide whether it renders during play mode.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-section">
+                <p>
+                    <strong>Why I built it:</strong> I wanted designers and programmers to see gameplay intent in the scene instantly,
+                    without writing one-off gizmo scripts for each component.
+                </p>
+            </div>
+
+            <p>Core scripts in this tool:</p>
+            <div class="project-list">
+                <ul>
+                    <li><strong>RuntimeGizmoRenderer.cs</strong> - reflection cache, field value parsing, and Handles drawing in Scene View.</li>
+                    <li><strong>DrawGizmoAttribute.cs</strong> - base metadata for color, shape, play mode, space, rotation, and usage.</li>
+                    <li><strong>DrawRadiusAttribute.cs / DrawCubeAttribute.cs / DrawAreaAttribute.cs / DrawLineAttribute.cs / DrawLabelAttribute.cs</strong> - specialized field annotations.</li>
+                    <li><strong>RuntimeGizmoRequest.cs</strong> - shape, usage, and space enums used by the system.</li>
+                    <li><strong>GizmoDebuggerWindow.cs</strong> - editor window to inspect and toggle gizmos quickly.</li>
+                    <li><strong>ExampleFieldGizmo.cs</strong> - practical example showing how attributes drive scene visualization.</li>
+                </ul>
+            </div>
+
+            <p>Suggested screenshots for this project page:</p>
+
+            <div class="image main">
+            
+                <img src="../images/Tools/gizmo-scene.overview.png" alt="Scene View with custom gizmos">
+
+          
+                <img src="../images/Tools/gizmo-attributes-inspector.png" alt="Inspector with DrawGizmo attributes">
+
+             
+                <img src="../images/Tools/gizmo-debugger-window.png" alt="Gizmo Debugger tool window">
+
+             
+                <img src="../images/Tools/gizmo-usage-example.png" alt="Gizmo Usage example with annotated fields">
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+
+        <!-- Copyright -->
+        <ul class="copyright">
+            <li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
