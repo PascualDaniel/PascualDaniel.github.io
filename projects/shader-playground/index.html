@@ -68,6 +68,19 @@
             <div class="playground-grid">
                 <article class="panel editor-panel">
                     <h3>Fragment Shader Editor</h3>
+                    <div class="editor-tools">
+                        <label for="shader-example">Examples</label>
+                        <select id="shader-example" aria-label="Shader examples">
+                            <option value="plasma">Plasma</option>
+                           
+                            <option value="waves">Waves</option>
+                            <option value="fractal">Simple fractal</option>
+                            <option value="dithering">Dithering (SRP Blit)</option>
+                            <option value="neonGlobe">Neon Globe (Sphere)</option>
+                            <option value="holoCube">Holo Cube (Cube)</option>
+                        </select>
+                        <button id="load-example" class="button small">Load</button>
+                    </div>
                     <div id="shader-editor" aria-label="GLSL code editor"></div>
                     <div class="console-label">Compile Output</div>
                     <pre id="shader-console" class="shader-console" aria-live="polite">Ready.</pre>
@@ -89,16 +102,31 @@
                             <option value="cube">Cube Shader</option>
                         </select>
                     </div>
-                    <p class="uniform-hint">Uniforms: <code>u_time</code> updates every frame, <code>u_resolution</code> updates on resize. Use <code>v_uv</code> to map shader color on sphere/cube surfaces.</p>
+
+                    <div class="uniform-controls" aria-label="Uniform controls">
+                        <div class="uniform-control">
+                            <label for="uniform-scale">u_scale</label>
+                            <input type="range" id="uniform-scale" min="0.2" max="8" step="0.1" value="1.5" />
+                            <span id="uniform-scale-value">1.5</span>
+                        </div>
+                        <div class="uniform-control">
+                            <label for="uniform-speed">u_speed</label>
+                            <input type="range" id="uniform-speed" min="0.1" max="6" step="0.1" value="1.0" />
+                            <span id="uniform-speed-value">1.0</span>
+                        </div>
+                    </div>
+
+                    <p class="uniform-hint">Uniforms: <code>u_time</code> updates every frame, <code>u_resolution</code> updates on resize, and sliders control <code>u_scale</code> and <code>u_speed</code> in real time.</p>
                 </article>
             </div>
         </section>
 
         <section class="post">
             <header>
-                <h2>About This Portfolio Project</h2>
+                <h2>About this project</h2>
             </header>
-            <p>A small WebGL tool for experimenting with fragment shaders directly in the browser.</p>
+            <p>This tool allows experimenting with GLSL fragment shaders directly in the browser.<br />
+                It uses Three.js and WebGL to render a fullscreen quad while recompiling shaders in real time, making it useful for learning and prototyping shader effects.</p>
         </section>
 
     </div>
@@ -133,6 +161,7 @@
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/util.js"></script>
     <script src="../../assets/js/main.js"></script>
+    <script src="examples.js"></script>
     <script src="playground.js"></script>
 
 </body>
