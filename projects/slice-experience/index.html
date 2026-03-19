@@ -53,6 +53,13 @@
 			pointer-events: none;
 		}
 
+		.slice-hud-right {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+		}
+
 		.slice-pill {
 			pointer-events: auto;
 			font-size: 0.9rem;
@@ -150,39 +157,41 @@
 		<section id="top" class="one dark cover">
 			<div class="container slice-hero">
 				<header>
-					<h2 class="alt"><strong>Slice Experience</strong></h2>
-					<p>Real-time mesh slicing in Three.js with multi-cut support and simple physics.</p>
+					<h2 class="alt"><strong>Moai Slice</strong></h2>
+					<p>Fruit Ninja style action: slash falling Moais, build score, and survive missed drops.</p>
 				</header>
 			</div>
 		</section>
 
 		<section class="post">
 			<header>
-				<h2>Interactive Mesh Slicing Demo</h2>
+				<h2>Arcade Slicing Mini-Game</h2>
 			</header>
 
 			<div class="slice-wrap">
 				<div class="slice-canvas-shell">
-					<canvas id="slice-canvas" aria-label="Interactive mesh slicing scene"></canvas>
+					<canvas id="slice-canvas" aria-label="Moai slicing mini-game"></canvas>
 					<div class="slice-overlay">
-						<div class="slice-pill" id="slice-hint">Click and drag across the model to define a slicing plane.</div>
-						<div style="display: flex; gap: 10px;">
-							<div class="slice-pill" id="slice-model-status">Loading model...</div>
-							<div class="slice-pill" id="slice-stats">Pieces: 1</div>
-							<button class="slice-pill" id="slice-reset" type="button">Reset Model</button>
+						<div class="slice-pill" id="slice-hint">Drag fast across a falling Moai to cut it.</div>
+						<div class="slice-hud-right">
+							<div class="slice-pill" id="slice-model-status">Loading moai...</div>
+							<div class="slice-pill" id="slice-score">Score: 0</div>
+							<div class="slice-pill" id="slice-lives">Lives: 3</div>
+							<div class="slice-pill" id="slice-best">Best: 0</div>
+							<button class="slice-pill" id="slice-reset" type="button">Start Game</button>
 						</div>
 					</div>
 				</div>
 
 				<div class="slice-notes">
 					<div class="slice-note-card">
-						<strong>How it works:</strong> Drag direction defines a cut plane (normal + midpoint). Intersecting meshes are split into independent pieces.
+						<strong>How to play:</strong> Keep slashing Moais before they drop below the arena. Every miss costs one life.
 					</div>
 					<div class="slice-note-card">
 						<strong>Model credit:</strong> "MOAI | Low Poly | Game-Ready" (https://skfb.ly/pEJXC) by lynnthefigs is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 					</div>
 					<div class="slice-note-card">
-						<strong>Tip:</strong> You can make multiple consecutive cuts. Orbit controls stay active to inspect each piece from any angle.
+						<strong>Tip:</strong> A longer and faster swipe is easier to register as a valid cut.
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { intersectsPlane, sliceMeshByPlane } from './lib/mesh-slicer.js';
@@ -9,10 +8,11 @@ const canvas = document.getElementById('slice-canvas');
 if (canvas) {
 	const scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x0b0f1f);
-	scene.fog = new THREE.FogExp2(0x0b0f1f, 0.035);
+	scene.fog = new THREE.FogExp2(0x0b0f1f, 0.04);
 
-	const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
-	camera.position.set(0, 1.8, 5.6);
+	const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+	camera.position.set(0, 1.1, 7.2);
+	camera.lookAt(0, 1, 0);
 
 	const renderer = new THREE.WebGLRenderer({
 		canvas,
@@ -23,177 +23,501 @@ if (canvas) {
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-	const controls = new OrbitControls(camera, renderer.domElement);
-	controls.enableDamping = true;
-	controls.dampingFactor = 0.05;
-	controls.minDistance = 2.5;
-	controls.maxDistance = 10;
-	controls.maxPolarAngle = Math.PI * 0.49;
-	controls.target.set(0, 1, 0);
-
-	const hemiLight = new THREE.HemisphereLight(0xa7c4ff, 0x1f160f, 0.55);
+	const hemiLight = new THREE.HemisphereLight(0xa7c4ff, 0x1a1410, 0.62);
 	scene.add(hemiLight);
 
-	const keyLight = new THREE.DirectionalLight(0xfff5d8, 1.45);
-	keyLight.position.set(3.2, 5.2, 3.5);
+	const keyLight = new THREE.DirectionalLight(0xfff5d8, 1.35);
+	keyLight.position.set(3, 5.8, 3.4);
 	keyLight.castShadow = true;
 	keyLight.shadow.mapSize.set(2048, 2048);
-	keyLight.shadow.camera.left = -6;
-	keyLight.shadow.camera.right = 6;
-	keyLight.shadow.camera.top = 6;
-	keyLight.shadow.camera.bottom = -6;
+	keyLight.shadow.camera.left = -7;
+	keyLight.shadow.camera.right = 7;
+	keyLight.shadow.camera.top = 7;
+	keyLight.shadow.camera.bottom = -7;
 	scene.add(keyLight);
 
-	const rimLight = new THREE.DirectionalLight(0x5fa3ff, 0.75);
-	rimLight.position.set(-4, 2.5, -2);
+	const rimLight = new THREE.DirectionalLight(0x68a8ff, 0.6);
+	rimLight.position.set(-5, 3, -1.5);
 	scene.add(rimLight);
 
-	const floorMat = new THREE.ShadowMaterial({ opacity: 0.3 });
-	const floor = new THREE.Mesh(new THREE.CircleGeometry(10, 96), floorMat);
+	const floor = new THREE.Mesh(
+		new THREE.CircleGeometry(12, 96),
+		new THREE.MeshStandardMaterial({
+			color: 0x101a2c,
+			roughness: 0.95,
+			metalness: 0.02
+		})
+	);
 	floor.rotation.x = -Math.PI * 0.5;
-	floor.position.y = -0.02;
+	floor.position.y = -2.6;
 	floor.receiveShadow = true;
 	scene.add(floor);
 
-	const piecesGroup = new THREE.Group();
-	scene.add(piecesGroup);
-
-	const state = {
-		meshPieces: [],
-		isDragging: false,
-		dragStartWorld: new THREE.Vector3(),
-		dragCurrentWorld: new THREE.Vector3(),
-		lastCutTime: 0,
-		maxPieces: 64
-	};
-
-	const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -1);
-	const raycaster = new THREE.Raycaster();
-	const ndc = new THREE.Vector2();
-
-	const planeGuide = new THREE.Mesh(
-		new THREE.PlaneGeometry(2.6, 2.6),
+	const arenaGlow = new THREE.Mesh(
+		new THREE.RingGeometry(3.2, 4.5, 96),
 		new THREE.MeshBasicMaterial({
-			color: 0x8ab8ff,
-			opacity: 0.2,
+			color: 0x79a9ff,
+			opacity: 0.16,
 			transparent: true,
 			side: THREE.DoubleSide,
 			depthWrite: false
 		})
 	);
-	planeGuide.visible = false;
-	scene.add(planeGuide);
+	arenaGlow.rotation.x = -Math.PI * 0.5;
+	arenaGlow.position.y = -2.58;
+	scene.add(arenaGlow);
 
-	const dragLine = new THREE.Line(
+	const moaiGroup = new THREE.Group();
+	scene.add(moaiGroup);
+
+	const debrisGroup = new THREE.Group();
+	scene.add(debrisGroup);
+
+	const slashLine = new THREE.Line(
 		new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),
-		new THREE.LineBasicMaterial({ color: 0x9ec6ff, transparent: true, opacity: 0.8 })
+		new THREE.LineBasicMaterial({
+			color: 0xa6d3ff,
+			opacity: 0,
+			transparent: true,
+			linewidth: 2
+		})
 	);
-	dragLine.visible = false;
-	scene.add(dragLine);
+	slashLine.visible = false;
+	scene.add(slashLine);
 
-	const cutHint = document.getElementById('slice-hint');
-	const stats = document.getElementById('slice-stats');
-	const modelStatus = document.getElementById('slice-model-status');
-	const resetButton = document.getElementById('slice-reset');
+	const hud = {
+		hint: document.getElementById('slice-hint'),
+		status: document.getElementById('slice-model-status'),
+		score: document.getElementById('slice-score'),
+		lives: document.getElementById('slice-lives'),
+		best: document.getElementById('slice-best'),
+		reset: document.getElementById('slice-reset')
+	};
 
-	function setModelStatus(text) {
-		if (modelStatus) {
-			modelStatus.textContent = text;
+	const state = {
+		modelReady: false,
+		isRunning: false,
+		score: 0,
+		lives: 3,
+		bestScore: Number(localStorage.getItem('moai-slice-best') || 0),
+		spawnCooldown: 0,
+		targets: [],
+		debris: [],
+		pointerActive: false,
+		pointerCurrentWorld: new THREE.Vector3(),
+		pointerPrevWorld: new THREE.Vector3(),
+		slashAlpha: 0,
+		lastSliceSoundAt: 0,
+		maxTargets: 12,
+		gravity: 5.4,
+		arenaBottom: -2.9,
+		moaiAsset: null
+	};
+
+	const raycaster = new THREE.Raycaster();
+	const ndc = new THREE.Vector2();
+	const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0.25);
+	const tmpVecA = new THREE.Vector3();
+	const tmpVecB = new THREE.Vector3();
+	const tmpVecC = new THREE.Vector3();
+
+	function setHint(text) {
+		if (hud.hint) {
+			hud.hint.textContent = text;
+		}
+	}
+
+	function setStatus(text) {
+		if (hud.status) {
+			hud.status.textContent = text;
+		}
+	}
+
+	function updateHud() {
+		if (hud.score) {
+			hud.score.textContent = `Score: ${state.score}`;
+		}
+		if (hud.lives) {
+			hud.lives.textContent = `Lives: ${state.lives}`;
+		}
+		if (hud.best) {
+			hud.best.textContent = `Best: ${state.bestScore}`;
+		}
+		if (hud.reset) {
+			hud.reset.textContent = state.isRunning ? 'Restart Game' : 'Start Game';
 		}
 	}
 
 	let audioContext;
 	function playSliceSound() {
+		const now = performance.now();
+		if (now - state.lastSliceSoundAt < 45) {
+			return;
+		}
+		state.lastSliceSoundAt = now;
 		if (!window.AudioContext && !window.webkitAudioContext) {
 			return;
 		}
 		audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-		const now = audioContext.currentTime;
-		const oscillator = audioContext.createOscillator();
+		const t = audioContext.currentTime;
+		const osc = audioContext.createOscillator();
 		const gain = audioContext.createGain();
-		oscillator.type = 'triangle';
-		oscillator.frequency.setValueAtTime(600, now);
-		oscillator.frequency.exponentialRampToValueAtTime(120, now + 0.12);
-		gain.gain.setValueAtTime(0.0001, now);
-		gain.gain.exponentialRampToValueAtTime(0.09, now + 0.015);
-		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
-		oscillator.connect(gain);
+		osc.type = 'triangle';
+		osc.frequency.setValueAtTime(720, t);
+		osc.frequency.exponentialRampToValueAtTime(190, t + 0.11);
+		gain.gain.setValueAtTime(0.0001, t);
+		gain.gain.exponentialRampToValueAtTime(0.1, t + 0.01);
+		gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+		osc.connect(gain);
 		gain.connect(audioContext.destination);
-		oscillator.start(now);
-		oscillator.stop(now + 0.18);
+		osc.start(t);
+		osc.stop(t + 0.18);
 	}
 
-	function updateStats() {
-		if (stats) {
-			stats.textContent = `Pieces: ${state.meshPieces.length}`;
+	function pointerToWorld(clientX, clientY, out) {
+		const rect = canvas.getBoundingClientRect();
+		ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+		ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+		raycaster.setFromCamera(ndc, camera);
+		return raycaster.ray.intersectPlane(interactionPlane, out);
+	}
+
+	function disposeMesh(mesh) {
+		if (!mesh) {
+			return;
+		}
+		mesh.parent?.remove(mesh);
+		mesh.geometry?.dispose();
+		if (Array.isArray(mesh.material)) {
+			mesh.material.forEach((mat) => mat.dispose());
+		} else {
+			mesh.material?.dispose();
 		}
 	}
 
-	function createFallbackRock() {
-		const geometry = new THREE.IcosahedronGeometry(1, 3);
-		const pos = geometry.attributes.position;
-		const v = new THREE.Vector3();
-		for (let i = 0; i < pos.count; i += 1) {
-			v.fromBufferAttribute(pos, i);
-			const noise = Math.sin(v.x * 4.2) * Math.cos(v.y * 5.1) * Math.sin(v.z * 3.6);
-			v.multiplyScalar(1 + noise * 0.12);
-			pos.setXYZ(i, v.x, v.y + 0.8, v.z);
-		}
-		pos.needsUpdate = true;
-		geometry.computeVertexNormals();
+	function clearEntities() {
+		state.targets.forEach((target) => disposeMesh(target.mesh));
+		state.debris.forEach((chunk) => disposeMesh(chunk.mesh));
+		state.targets = [];
+		state.debris = [];
+	}
 
-		const material = new THREE.MeshStandardMaterial({
-			color: 0xa4acb6,
-			roughness: 0.9,
-			metalness: 0.1,
-			side: THREE.DoubleSide
-		});
-		const mesh = new THREE.Mesh(geometry, material);
+	function saveBestScoreIfNeeded() {
+		if (state.score <= state.bestScore) {
+			return;
+		}
+		state.bestScore = state.score;
+		localStorage.setItem('moai-slice-best', String(state.bestScore));
+	}
+
+	function endGame() {
+		state.isRunning = false;
+		saveBestScoreIfNeeded();
+		updateHud();
+		setHint(`Game over. Final score: ${state.score}. Press Start Game to play again.`);
+	}
+
+	function startGame() {
+		if (!state.modelReady) {
+			setHint('Moai model is still loading. Please wait...');
+			return;
+		}
+		clearEntities();
+		state.isRunning = true;
+		state.score = 0;
+		state.lives = 3;
+		state.spawnCooldown = 0.35;
+		updateHud();
+		setHint('Slice the falling Moais before they hit the bottom.');
+		setStatus('Ready');
+	}
+
+	function removeTargetAt(index) {
+		if (index < 0 || index >= state.targets.length) {
+			return;
+		}
+		const target = state.targets[index];
+		disposeMesh(target.mesh);
+		state.targets.splice(index, 1);
+	}
+
+	function removeDebrisAt(index) {
+		if (index < 0 || index >= state.debris.length) {
+			return;
+		}
+		const chunk = state.debris[index];
+		disposeMesh(chunk.mesh);
+		state.debris.splice(index, 1);
+	}
+
+	function spawnMoai() {
+		if (!state.moaiAsset || state.targets.length >= state.maxTargets) {
+			return;
+		}
+
+		const mesh = new THREE.Mesh(
+			state.moaiAsset.geometry.clone(),
+			state.moaiAsset.material.clone()
+		);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
-		mesh.userData.velocity = new THREE.Vector3();
-		piecesGroup.add(mesh);
-		state.meshPieces = [mesh];
-		updateStats();
+
+		const scale = THREE.MathUtils.randFloat(0.4, 0.9);
+		mesh.scale.setScalar(scale);
+		mesh.position.set(
+			THREE.MathUtils.randFloat(-3.1, 3.1),
+			THREE.MathUtils.randFloat(3.6, 5.4),
+			THREE.MathUtils.randFloat(-0.8, 0.8)
+		);
+		mesh.rotation.copy(state.moaiAsset.rotation);
+		mesh.rotation.y += THREE.MathUtils.randFloat(-0.8, 0.8);
+		moaiGroup.add(mesh);
+
+		state.targets.push({
+			mesh,
+			radius: state.moaiAsset.radius * scale,
+			velocity: new THREE.Vector3(
+				THREE.MathUtils.randFloat(-0.75, 0.75),
+				THREE.MathUtils.randFloat(-1.2, -2.1),
+				THREE.MathUtils.randFloat(-0.5, 0.5)
+			),
+			angularVelocity: new THREE.Vector3(
+				THREE.MathUtils.randFloat(-1.1, 1.1),
+				THREE.MathUtils.randFloat(-0.9, 0.9),
+				THREE.MathUtils.randFloat(-0.8, 0.8)
+			)
+		});
 	}
 
-	function frameObject(mesh) {
-		const box = new THREE.Box3().setFromObject(mesh);
-		const size = box.getSize(new THREE.Vector3()).length();
-		const center = box.getCenter(new THREE.Vector3());
-		controls.target.copy(center);
-		camera.near = Math.max(size / 100, 0.1);
-		camera.far = Math.max(size * 12, 30);
-		camera.position.copy(center).add(new THREE.Vector3(size * 0.35, size * 0.3, size * 0.8));
+	function distancePointToSegment(point, start, end) {
+		tmpVecA.copy(end).sub(start);
+		const lenSq = tmpVecA.lengthSq();
+		if (lenSq < 0.000001) {
+			return point.distanceTo(start);
+		}
+		tmpVecB.copy(point).sub(start);
+		const t = THREE.MathUtils.clamp(tmpVecB.dot(tmpVecA) / lenSq, 0, 1);
+		tmpVecC.copy(start).addScaledVector(tmpVecA, t);
+		return point.distanceTo(tmpVecC);
+	}
+
+	function scoreHit(base = 10) {
+		state.score += base;
+		if (state.score > state.bestScore) {
+			state.bestScore = state.score;
+		}
+		updateHud();
+	}
+
+	function makeDebris(mesh, velocity, ttl) {
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		debrisGroup.add(mesh);
+		state.debris.push({
+			mesh,
+			velocity,
+			angularVelocity: new THREE.Vector3(
+				THREE.MathUtils.randFloat(-2.5, 2.5),
+				THREE.MathUtils.randFloat(-2.5, 2.5),
+				THREE.MathUtils.randFloat(-2.5, 2.5)
+			),
+			ttl
+		});
+	}
+
+	function trySliceTarget(targetIndex, worldPlane, planeNormal) {
+		const target = state.targets[targetIndex];
+		if (!target) {
+			return false;
+		}
+		const original = target.mesh;
+
+		if (!intersectsPlane(original, worldPlane)) {
+			return false;
+		}
+
+		const sliced = sliceMeshByPlane(original, worldPlane);
+		removeTargetAt(targetIndex);
+
+		if (!sliced) {
+			scoreHit(8);
+			playSliceSound();
+			return true;
+		}
+
+		const push = planeNormal.clone().multiplyScalar(1.9);
+		const upward = new THREE.Vector3(0, 1.3, 0);
+		makeDebris(
+			sliced.positiveMesh,
+			target.velocity.clone().add(push).add(upward),
+			2.1
+		);
+		makeDebris(
+			sliced.negativeMesh,
+			target.velocity.clone().addScaledVector(push, -1).add(upward),
+			2.1
+		);
+
+		scoreHit(12);
+		playSliceSound();
+		return true;
+	}
+
+	function handleSwipeSlice(start, end) {
+		if (!state.isRunning || state.targets.length === 0) {
+			return;
+		}
+
+		const swipeDirection = end.clone().sub(start);
+		if (swipeDirection.lengthSq() < 0.03) {
+			return;
+		}
+
+		const viewDir = new THREE.Vector3();
+		camera.getWorldDirection(viewDir);
+		const planeNormal = new THREE.Vector3().crossVectors(swipeDirection, viewDir).normalize();
+		if (planeNormal.lengthSq() < 0.0001) {
+			return;
+		}
+
+		const midpoint = start.clone().add(end).multiplyScalar(0.5);
+		const worldPlane = new THREE.Plane().setFromNormalAndCoplanarPoint(planeNormal, midpoint);
+
+		let slicedAny = false;
+		for (let i = state.targets.length - 1; i >= 0; i -= 1) {
+			const target = state.targets[i];
+			const corridorDistance = distancePointToSegment(target.mesh.position, start, end);
+			if (corridorDistance > target.radius * 1.15) {
+				continue;
+			}
+			slicedAny = trySliceTarget(i, worldPlane, planeNormal) || slicedAny;
+		}
+
+		if (slicedAny) {
+			setHint('Nice slice! Keep the combo going.');
+		}
+	}
+
+	function updateTargets(dt) {
+		for (let i = state.targets.length - 1; i >= 0; i -= 1) {
+			const target = state.targets[i];
+			target.velocity.y -= state.gravity * dt;
+			target.mesh.position.addScaledVector(target.velocity, dt);
+			target.mesh.rotation.x += target.angularVelocity.x * dt;
+			target.mesh.rotation.y += target.angularVelocity.y * dt;
+			target.mesh.rotation.z += target.angularVelocity.z * dt;
+
+			if (target.mesh.position.y < state.arenaBottom) {
+				removeTargetAt(i);
+				if (state.isRunning) {
+					state.lives -= 1;
+					updateHud();
+					if (state.lives <= 0) {
+						endGame();
+					} else {
+						setHint('Missed one! Slice the next Moai.');
+					}
+				}
+			}
+		}
+	}
+
+	function updateDebris(dt) {
+		for (let i = state.debris.length - 1; i >= 0; i -= 1) {
+			const chunk = state.debris[i];
+			chunk.ttl -= dt;
+			chunk.velocity.y -= state.gravity * dt * 1.2;
+			chunk.mesh.position.addScaledVector(chunk.velocity, dt);
+			chunk.mesh.rotation.x += chunk.angularVelocity.x * dt;
+			chunk.mesh.rotation.y += chunk.angularVelocity.y * dt;
+			chunk.mesh.rotation.z += chunk.angularVelocity.z * dt;
+
+			if (chunk.ttl <= 0 || chunk.mesh.position.y < state.arenaBottom - 1.1) {
+				removeDebrisAt(i);
+			}
+		}
+	}
+
+	function updateSpawner(dt) {
+		if (!state.isRunning || !state.modelReady) {
+			return;
+		}
+		state.spawnCooldown -= dt;
+		if (state.spawnCooldown > 0) {
+			return;
+		}
+
+		spawnMoai();
+		const pace = Math.max(0.32, 0.95 - state.score * 0.0028);
+		state.spawnCooldown = THREE.MathUtils.randFloat(pace * 0.75, pace * 1.15);
+	}
+
+	function onPointerDown(event) {
+		if (event.button !== 0) {
+			return;
+		}
+		if (!pointerToWorld(event.clientX, event.clientY, state.pointerCurrentWorld)) {
+			return;
+		}
+		canvas.setPointerCapture(event.pointerId);
+		state.pointerPrevWorld.copy(state.pointerCurrentWorld);
+		state.pointerActive = true;
+		slashLine.visible = true;
+		state.slashAlpha = 1;
+		setHint(state.isRunning ? 'Slash through Moais.' : 'Press Start Game to begin.');
+	}
+
+	function onPointerMove(event) {
+		if (!state.pointerActive) {
+			return;
+		}
+		if (!pointerToWorld(event.clientX, event.clientY, state.pointerCurrentWorld)) {
+			return;
+		}
+
+		handleSwipeSlice(state.pointerPrevWorld, state.pointerCurrentWorld);
+
+		slashLine.geometry.setFromPoints([state.pointerPrevWorld, state.pointerCurrentWorld]);
+		state.slashAlpha = 0.95;
+		state.pointerPrevWorld.copy(state.pointerCurrentWorld);
+	}
+
+	function onPointerUp(event) {
+		if (!state.pointerActive) {
+			return;
+		}
+		state.pointerActive = false;
+		canvas.releasePointerCapture(event.pointerId);
+	}
+
+	canvas.addEventListener('pointerdown', onPointerDown);
+	canvas.addEventListener('pointermove', onPointerMove);
+	canvas.addEventListener('pointerup', onPointerUp);
+	canvas.addEventListener('pointercancel', onPointerUp);
+	canvas.addEventListener('contextmenu', (event) => event.preventDefault());
+
+	if (hud.reset) {
+		hud.reset.addEventListener('click', () => {
+			startGame();
+		});
+	}
+
+	function resize() {
+		const rect = canvas.getBoundingClientRect();
+		const width = Math.max(1, Math.floor(rect.width));
+		const height = Math.max(1, Math.floor(rect.height));
+		renderer.setSize(width, height, false);
+		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
 	}
+	window.addEventListener('resize', resize);
+	resize();
 
-	function registerPiece(mesh) {
-		mesh.castShadow = true;
-		mesh.receiveShadow = true;
-		mesh.userData.velocity = mesh.userData.velocity || new THREE.Vector3();
-		piecesGroup.add(mesh);
-	}
-
-	function clearPieces() {
-		state.meshPieces.forEach((mesh) => {
-			piecesGroup.remove(mesh);
-			mesh.geometry.dispose();
-			if (Array.isArray(mesh.material)) {
-				mesh.material.forEach((mat) => mat.dispose());
-			} else {
-				mesh.material.dispose();
-			}
-		});
-		state.meshPieces = [];
-	}
-
-	async function loadMainMesh() {
-		clearPieces();
+	async function loadMoaiAsset() {
 		const loader = new GLTFLoader();
 		const fbxLoader = new FBXLoader();
 		const textureLoader = new THREE.TextureLoader();
-		setModelStatus('Loading Moai mesh...');
+		setStatus('Loading moai...');
 
 		try {
 			const [baseColorMap, normalMap, roughnessMap] = await Promise.all([
@@ -225,11 +549,13 @@ if (canvas) {
 			});
 
 			if (!sourceMesh) {
-				throw new Error('No mesh found in moai.glb');
+				throw new Error('No mesh found in loaded asset.');
 			}
 
 			const geometry = sourceMesh.geometry.clone();
+			geometry.computeBoundingSphere();
 			geometry.computeVertexNormals();
+
 			const material = new THREE.MeshStandardMaterial({
 				color: 0xffffff,
 				map: baseColorMap,
@@ -240,215 +566,71 @@ if (canvas) {
 				side: THREE.DoubleSide
 			});
 
-			const mesh = new THREE.Mesh(geometry, material);
-			mesh.position.set(0, 0.1, 0);
-			mesh.scale.setScalar(1.5);
-			mesh.rotation.set(loadedFromFbx ? -Math.PI * 0.5 : 0, Math.PI * 0.13, 0);
-			mesh.castShadow = true;
-			mesh.receiveShadow = true;
-			mesh.userData.velocity = new THREE.Vector3();
-			registerPiece(mesh);
-			state.meshPieces = [mesh];
-			frameObject(mesh);
-			updateStats();
-			setModelStatus('Moai loaded');
+			state.moaiAsset = {
+				geometry,
+				material,
+				radius: Math.max(0.55, geometry.boundingSphere?.radius || 0.8),
+				rotation: new THREE.Euler(loadedFromFbx ? -Math.PI * 0.5 : 0, Math.PI * 0.12, 0)
+			};
+			state.modelReady = true;
+			setStatus('Moai loaded');
+			setHint('Press Start Game, then slice falling Moais.');
+			updateHud();
 		} catch (error) {
-			console.warn('Falling back to procedural rock. Put moai model at models/moai/moai.glb', error);
-			setModelStatus('Moai mesh missing: add models/moai/moai.glb');
-			createFallbackRock();
-			if (state.meshPieces[0]) {
-				frameObject(state.meshPieces[0]);
+			console.warn('Falling back to procedural moai.', error);
+			const geometry = new THREE.CylinderGeometry(0.55, 0.75, 1.8, 12, 8);
+			const pos = geometry.attributes.position;
+			for (let i = 0; i < pos.count; i += 1) {
+				tmpVecA.fromBufferAttribute(pos, i);
+				const n = Math.sin(tmpVecA.y * 5.3) * Math.cos(tmpVecA.x * 4.1) * 0.09;
+				tmpVecA.x *= 1 + n;
+				tmpVecA.z *= 1 + n;
+				pos.setXYZ(i, tmpVecA.x, tmpVecA.y + 0.1, tmpVecA.z);
 			}
+			pos.needsUpdate = true;
+			geometry.computeBoundingSphere();
+			geometry.computeVertexNormals();
+
+			const material = new THREE.MeshStandardMaterial({
+				color: 0xa4acb6,
+				roughness: 0.92,
+				metalness: 0.05,
+				side: THREE.DoubleSide
+			});
+
+			state.moaiAsset = {
+				geometry,
+				material,
+				radius: Math.max(0.55, geometry.boundingSphere?.radius || 0.8),
+				rotation: new THREE.Euler(0, Math.PI * 0.12, 0)
+			};
+			state.modelReady = true;
+			setStatus('Using fallback moai');
+			setHint('Press Start Game, then slice falling Moais.');
+			updateHud();
 		}
-	}
-
-	function pointerToWorld(clientX, clientY, target) {
-		const rect = canvas.getBoundingClientRect();
-		ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
-		ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
-		raycaster.setFromCamera(ndc, camera);
-		return raycaster.ray.intersectPlane(interactionPlane, target);
-	}
-
-	function updateGuide(startPoint, endPoint) {
-		const dragVector = endPoint.clone().sub(startPoint);
-		const dragLength = dragVector.length();
-		if (dragLength < 0.15) {
-			planeGuide.visible = false;
-			dragLine.visible = false;
-			return null;
-		}
-
-		dragLine.visible = true;
-		dragLine.geometry.setFromPoints([startPoint, endPoint]);
-
-		const midpoint = startPoint.clone().add(endPoint).multiplyScalar(0.5);
-		const planeNormal = new THREE.Vector3().crossVectors(dragVector, new THREE.Vector3(0, 1, 0)).normalize();
-		if (planeNormal.lengthSq() < 0.0001) {
-			planeGuide.visible = false;
-			return null;
-		}
-
-		const worldPlane = new THREE.Plane().setFromNormalAndCoplanarPoint(planeNormal, midpoint);
-		const lookTarget = midpoint.clone().add(planeNormal);
-		planeGuide.visible = true;
-		planeGuide.position.copy(midpoint);
-		planeGuide.lookAt(lookTarget);
-
-		return worldPlane;
-	}
-
-	function applyPhysics(dt) {
-		for (const mesh of state.meshPieces) {
-			const velocity = mesh.userData.velocity;
-			if (!velocity) {
-				continue;
-			}
-
-			velocity.y -= 6.5 * dt;
-			mesh.position.addScaledVector(velocity, dt);
-			mesh.rotation.x += velocity.z * dt * 0.35;
-			mesh.rotation.z += velocity.x * dt * 0.35;
-
-			if (mesh.position.y < 0.2) {
-				mesh.position.y = 0.2;
-				velocity.y *= -0.32;
-				velocity.x *= 0.82;
-				velocity.z *= 0.82;
-			}
-		}
-	}
-
-	function sliceWithPlane(worldPlane) {
-		const now = performance.now();
-		if (now - state.lastCutTime < 120) {
-			return;
-		}
-		state.lastCutTime = now;
-
-		const nextPieces = [];
-		let splitCount = 0;
-		for (const mesh of state.meshPieces) {
-			if (!intersectsPlane(mesh, worldPlane) || state.meshPieces.length + splitCount >= state.maxPieces) {
-				nextPieces.push(mesh);
-				continue;
-			}
-
-			const sliced = sliceMeshByPlane(mesh, worldPlane);
-			if (!sliced) {
-				nextPieces.push(mesh);
-				continue;
-			}
-
-			piecesGroup.remove(mesh);
-			mesh.geometry.dispose();
-			if (Array.isArray(mesh.material)) {
-				mesh.material.forEach((mat) => mat.dispose());
-			} else {
-				mesh.material.dispose();
-			}
-
-			const impulse = sliced.planeNormal.clone().multiplyScalar(1.4);
-			sliced.positiveMesh.userData.velocity = (mesh.userData.velocity || new THREE.Vector3()).clone().add(impulse);
-			sliced.negativeMesh.userData.velocity = (mesh.userData.velocity || new THREE.Vector3()).clone().addScaledVector(impulse, -1);
-
-			registerPiece(sliced.positiveMesh);
-			registerPiece(sliced.negativeMesh);
-			nextPieces.push(sliced.positiveMesh, sliced.negativeMesh);
-			splitCount += 1;
-		}
-
-		state.meshPieces = nextPieces;
-		updateStats();
-		if (splitCount > 0) {
-			playSliceSound();
-		}
-	}
-
-	function onPointerDown(event) {
-		if (event.button !== 0) {
-			return;
-		}
-		if (!pointerToWorld(event.clientX, event.clientY, state.dragStartWorld)) {
-			return;
-		}
-		state.dragCurrentWorld.copy(state.dragStartWorld);
-		state.isDragging = true;
-		dragLine.visible = true;
-		if (cutHint) {
-			cutHint.textContent = 'Release to cut. Drag direction defines the slice plane.';
-		}
-	}
-
-	function onPointerMove(event) {
-		if (!state.isDragging) {
-			return;
-		}
-		if (!pointerToWorld(event.clientX, event.clientY, state.dragCurrentWorld)) {
-			return;
-		}
-		updateGuide(state.dragStartWorld, state.dragCurrentWorld);
-	}
-
-	function onPointerUp(event) {
-		if (!state.isDragging) {
-			return;
-		}
-		state.isDragging = false;
-		if (!pointerToWorld(event.clientX, event.clientY, state.dragCurrentWorld)) {
-			planeGuide.visible = false;
-			dragLine.visible = false;
-			return;
-		}
-
-		const worldPlane = updateGuide(state.dragStartWorld, state.dragCurrentWorld);
-		if (worldPlane) {
-			sliceWithPlane(worldPlane);
-		}
-
-		setTimeout(() => {
-			planeGuide.visible = false;
-			dragLine.visible = false;
-		}, 130);
-
-		if (cutHint) {
-			cutHint.textContent = 'Click and drag across the model to slice it again.';
-		}
-	}
-
-	canvas.addEventListener('pointerdown', onPointerDown);
-	window.addEventListener('pointermove', onPointerMove);
-	window.addEventListener('pointerup', onPointerUp);
-
-	if (resetButton) {
-		resetButton.addEventListener('click', () => {
-			loadMainMesh();
-			if (cutHint) {
-				cutHint.textContent = 'Click and drag across the model to define a slicing plane.';
-			}
-		});
 	}
 
 	const clock = new THREE.Clock();
-	function resize() {
-		const rect = canvas.getBoundingClientRect();
-		const width = Math.max(1, Math.floor(rect.width));
-		const height = Math.max(1, Math.floor(rect.height));
-		renderer.setSize(width, height, false);
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-	}
-	window.addEventListener('resize', resize);
-	resize();
-
 	function animate() {
 		const dt = Math.min(clock.getDelta(), 1 / 30);
-		applyPhysics(dt);
-		controls.update();
+		updateSpawner(dt);
+		updateTargets(dt);
+		updateDebris(dt);
+
+		if (state.slashAlpha > 0.001) {
+			state.slashAlpha = Math.max(0, state.slashAlpha - dt * 4.2);
+			slashLine.visible = true;
+			slashLine.material.opacity = state.slashAlpha;
+		} else {
+			slashLine.visible = false;
+		}
+
 		renderer.render(scene, camera);
 		requestAnimationFrame(animate);
 	}
 
-	loadMainMesh();
+	updateHud();
+	loadMoaiAsset();
 	animate();
 }
