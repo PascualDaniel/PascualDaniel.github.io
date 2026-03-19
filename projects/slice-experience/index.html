@@ -1,0 +1,209 @@
+<html>
+
+<head>
+	<title>Daniel Pascual - Slice Experience</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../../assets/css/main.css" />
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+			}
+		}
+	</script>
+	<style>
+		.slice-hero {
+			text-align: center;
+		}
+
+		.slice-wrap {
+			padding: 28px;
+			border-radius: 24px;
+			background: linear-gradient(145deg, rgba(12, 18, 40, 0.9), rgba(31, 41, 79, 0.86));
+			box-shadow: 0 22px 56px rgba(5, 8, 24, 0.42);
+			border: 1px solid rgba(157, 198, 255, 0.2);
+			backdrop-filter: blur(5px);
+		}
+
+		.slice-canvas-shell {
+			position: relative;
+			border-radius: 18px;
+			overflow: hidden;
+			border: 1px solid rgba(201, 224, 255, 0.32);
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+		}
+
+		#slice-canvas {
+			display: block;
+			width: 100%;
+			height: min(72vh, 620px);
+			background: radial-gradient(circle at 35% 25%, #273764 0%, #0b1022 54%, #080b17 100%);
+		}
+
+		.slice-overlay {
+			position: absolute;
+			top: 16px;
+			left: 16px;
+			right: 16px;
+			display: flex;
+			justify-content: space-between;
+			gap: 14px;
+			pointer-events: none;
+		}
+
+		.slice-pill {
+			pointer-events: auto;
+			font-size: 0.9rem;
+			color: #e6f0ff;
+			background: rgba(7, 11, 27, 0.74);
+			border: 1px solid rgba(179, 210, 255, 0.35);
+			border-radius: 999px;
+			padding: 8px 14px;
+			letter-spacing: 0.01em;
+		}
+
+		#slice-reset {
+			cursor: pointer;
+			font-weight: 700;
+			transition: transform 180ms ease, background-color 180ms ease;
+		}
+
+		#slice-reset:hover {
+			transform: translateY(-2px);
+			background: rgba(48, 74, 138, 0.9);
+		}
+
+		.slice-notes {
+			margin-top: 20px;
+			display: grid;
+			gap: 10px;
+			color: #dde8ff;
+		}
+
+		.slice-note-card {
+			border-radius: 12px;
+			padding: 12px 14px;
+			background: rgba(11, 17, 37, 0.72);
+			border: 1px solid rgba(176, 209, 255, 0.25);
+		}
+
+		.slice-note-card strong {
+			color: #ffffff;
+		}
+
+		@media screen and (max-width: 980px) {
+			.slice-wrap {
+				padding: 14px;
+				border-radius: 16px;
+			}
+
+			.slice-overlay {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			#slice-canvas {
+				height: 62vh;
+			}
+		}
+	</style>
+</head>
+
+<body class="is-preload view-page">
+
+	<div id="header">
+		<div class="top">
+			<div id="logo">
+				<span class="image avatar48"><img src="../../images/lipinpato.png" alt="my image" /></span>
+				<h1 id="title">Daniel Pascual</h1>
+				<p>Software Engineer</p>
+			</div>
+
+			<nav id="nav">
+				<ul>
+					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+					<li><a href="../../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
+					</li>
+					<li><a href="https://github.com/PascualDaniel" id="project-link"><span class="icon solid fa-code">Code</span></a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="bottom">
+			<ul class="icons">
+				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
+				</li>
+				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a></li>
+				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span class="label">Github</span></a>
+				</li>
+				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
+							class="label">linkedin</span></a></li>
+				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
+							class="label">Email</span></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="main">
+		<section id="top" class="one dark cover">
+			<div class="container slice-hero">
+				<header>
+					<h2 class="alt"><strong>Slice Experience</strong></h2>
+					<p>Real-time mesh slicing in Three.js with multi-cut support and simple physics.</p>
+				</header>
+			</div>
+		</section>
+
+		<section class="post">
+			<header>
+				<h2>Interactive Mesh Slicing Demo</h2>
+			</header>
+
+			<div class="slice-wrap">
+				<div class="slice-canvas-shell">
+					<canvas id="slice-canvas" aria-label="Interactive mesh slicing scene"></canvas>
+					<div class="slice-overlay">
+						<div class="slice-pill" id="slice-hint">Click and drag across the model to define a slicing plane.</div>
+						<div style="display: flex; gap: 10px;">
+							<div class="slice-pill" id="slice-model-status">Loading model...</div>
+							<div class="slice-pill" id="slice-stats">Pieces: 1</div>
+							<button class="slice-pill" id="slice-reset" type="button">Reset Model</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="slice-notes">
+					<div class="slice-note-card">
+						<strong>How it works:</strong> Drag direction defines a cut plane (normal + midpoint). Intersecting meshes are split into independent pieces.
+					</div>
+					<div class="slice-note-card">
+						<strong>Model credit:</strong> "MOAI | Low Poly | Game-Ready" (https://skfb.ly/pEJXC) by lynnthefigs is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+					</div>
+					<div class="slice-note-card">
+						<strong>Tip:</strong> You can make multiple consecutive cuts. Orbit controls stay active to inspect each piece from any angle.
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div id="footer">
+		<ul class="copyright">
+			<li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+
+	<script src="../../assets/js/jquery.min.js"></script>
+	<script src="../../assets/js/jquery.scrolly.min.js"></script>
+	<script src="../../assets/js/jquery.scrollex.min.js"></script>
+	<script src="../../assets/js/browser.min.js"></script>
+	<script src="../../assets/js/breakpoints.min.js"></script>
+	<script src="../../assets/js/util.js"></script>
+	<script src="../../assets/js/main.js"></script>
+	<script type="module" src="./slice-experience.js"></script>
+</body>
+
+</html>
