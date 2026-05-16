@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Between the Canvases project cover</title>
+  <desc id="desc">A cozy room with floating painted canvases, a magical brush, and warm tech-art particles.</desc>
+  <defs>
+    <linearGradient id="room" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#37235a"/>
+      <stop offset="0.55" stop-color="#725394"/>
+      <stop offset="1" stop-color="#f1b98d"/>
+    </linearGradient>
+    <linearGradient id="canvas" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff3df"/>
+      <stop offset="1" stop-color="#ffd8b0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="55%">
+      <stop offset="0" stop-color="#fff7a8" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#c990ff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#33204e" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#room)"/>
+  <path d="M0 500 C230 430 370 550 570 490 C760 430 870 455 1200 365 L1200 675 L0 675 Z" fill="#2d2143" opacity="0.55"/>
+  <circle cx="610" cy="365" r="310" fill="url(#glow)"/>
+
+  <g opacity="0.33" stroke="#f7dfbb" stroke-width="4" fill="none">
+    <path d="M75 115 H1125 M75 205 H1125 M75 295 H1125"/>
+    <path d="M180 92 V410 M1020 92 V420"/>
+  </g>
+
+  <g transform="translate(118 122) rotate(-6)">
+    <rect x="0" y="0" width="300" height="210" rx="16" fill="#5b3d77" opacity="0.45"/>
+    <rect x="18" y="16" width="264" height="178" rx="10" fill="url(#canvas)"/>
+    <path d="M36 159 C88 82 156 131 203 72 C235 31 260 60 274 42 L274 177 L36 177 Z" fill="#8fc9c5"/>
+    <circle cx="86" cy="72" r="28" fill="#ffd36b"/>
+    <path d="M54 142 C106 122 127 145 174 124 C212 106 236 131 268 112" stroke="#7b528d" stroke-width="13" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <g transform="translate(757 109) rotate(7)">
+    <rect x="0" y="0" width="292" height="210" rx="16" fill="#4b315f" opacity="0.5"/>
+    <rect x="18" y="16" width="256" height="178" rx="10" fill="url(#canvas)"/>
+    <path d="M43 155 C88 98 131 116 159 70 C184 30 235 55 253 102 L253 178 L43 178 Z" fill="#c8b3ee"/>
+    <path d="M51 130 L126 82 L177 119 L244 63" stroke="#8a54ce" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <circle cx="215" cy="68" r="22" fill="#ffbf8d"/>
+  </g>
+
+  <g transform="translate(392 188)">
+    <rect x="0" y="0" width="414" height="292" rx="24" fill="#2b1c3d" opacity="0.35"/>
+    <rect x="25" y="22" width="364" height="248" rx="16" fill="#ffe9cf"/>
+    <path d="M53 216 C110 116 165 158 210 96 C260 26 324 85 363 49 L363 248 L53 248 Z" fill="#e0c2ff"/>
+    <path d="M54 226 C121 175 162 226 214 166 C266 106 291 178 361 120" stroke="#7eb9c2" stroke-width="18" stroke-linecap="round" fill="none"/>
+    <path d="M73 78 C117 36 175 60 191 112 C151 112 105 102 73 78 Z" fill="#ffcf73" opacity="0.9"/>
+  </g>
+
+  <g transform="translate(610 410) rotate(-24)">
+    <rect x="-18" y="-26" width="210" height="38" rx="19" fill="#7b4e36"/>
+    <rect x="135" y="-34" width="70" height="54" rx="18" fill="#d9c0a4"/>
+    <path d="M197 -29 C265 -52 282 -15 203 17 C221 0 218 -17 197 -29 Z" fill="#ffe5a8"/>
+  </g>
+
+  <g fill="#ffe9a8">
+    <circle cx="305" cy="408" r="7"/><circle cx="347" cy="365" r="4"/><circle cx="837" cy="420" r="6"/>
+    <circle cx="874" cy="338" r="4"/><circle cx="505" cy="126" r="5"/><circle cx="670" cy="102" r="4"/>
+  </g>
+  <g stroke="#ffe9a8" stroke-linecap="round" filter="url(#soft)" opacity="0.75">
+    <path d="M420 462 C527 356 649 344 827 389" stroke-width="10" fill="none"/>
+    <path d="M531 162 C608 115 723 143 781 220" stroke-width="7" fill="none"/>
+  </g>
+
+  <text x="600" y="586" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700" fill="#fff3df">Between the Canvases</text>
+  <text x="600" y="628" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" letter-spacing="4" fill="#f8d7ff">TECH ART · UNITY · JAMAGGEDON 2026</text>
+</svg>
