@@ -80,6 +80,35 @@
 			color: #4b2a6d;
 			margin-bottom: 8px;
 		}
+
+		.trailer-wrap {
+			margin: 28px 0;
+		}
+
+		.video-frame {
+			aspect-ratio: 16 / 9;
+			border: 0;
+			border-radius: 14px;
+			box-shadow: 0 12px 32px rgba(42, 28, 62, 0.22);
+			display: block;
+			margin: 0 auto;
+			max-width: 640px;
+			width: 100%;
+		}
+
+		.gallery-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			margin: 22px 0 8px;
+		}
+
+		.gallery-grid img {
+			border-radius: 12px;
+			box-shadow: 0 12px 28px rgba(42, 28, 62, 0.18);
+			height: auto;
+			width: 100%;
+		}
 	</style>
 </head>
 
@@ -136,9 +165,6 @@
 				<h2>Between the Canvases - Jamaggedon 2026</h2>
 			</header>
 
-			<div class="image main">
-				<img src="../images/betweenthecanvases/cover.svg" alt="Between the Canvases cover artwork">
-			</div>
 
 			<div class="project-meta">
 				<span>Role: Technical Artist</span>
@@ -156,8 +182,8 @@
 			<p>
 				I joined the project as the <strong>Technical Artist</strong>, bridging art and implementation so the game's
 				cozy painting-travel fantasy could feel readable, responsive, and polished inside Unity. My work focused on
-				making the magical brush interactions, canvas moments, and scene feedback support the art direction without
-				getting in the way of puzzle readability.
+				building the shaders and VFX that support the experience, from revealing the player behind walls to
+				mist, painting transitions, interactable feedback, and the final hand-painted look of the world.
 			</p>
 
 			<div class="cta-row">
@@ -165,22 +191,35 @@
 				<a href="https://github.com/aemc64/UditJamLady" target="_blank">View Source on GitHub</a>
 			</div>
 
+			<h3>Trailer</h3>
+			<div class="trailer-wrap">
+				<iframe class="video-frame" src="https://www.youtube.com/embed/CXhI-mAgOCs" title="Between the Canvases trailer"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen></iframe>
+			</div>
+
+			<h3>Images</h3>
+			<div class="gallery-grid">
+				<img src="../images/betweenthecanvases/8DLDnG.png" alt="Between the Canvases screenshot showing gameplay and visual effects">
+				<img src="../images/betweenthecanvases/waj0Dw.png" alt="Between the Canvases screenshot showing the painted visual style">
+			</div>
+
 			<h3>Technical Art Focus</h3>
 			<div class="feature-grid">
 				<div class="feature-card">
-					<h4>Art-to-Unity Integration</h4>
-					<p>Supported the team by bringing assets into the project cleanly, keeping scenes visually consistent, and
-						making sure interactive painting elements were easy to iterate during the jam.</p>
+					<h4>Player Reveal Shader</h4>
+					<p>Created a shader that keeps the player visible through walls so navigation stays readable without breaking
+						the scene composition.</p>
 				</div>
 				<div class="feature-card">
-					<h4>Magical Brush Feedback</h4>
-					<p>Helped shape the feel of the paintbrush interactions with visual feedback that communicates when the player
-						can restore or interact with parts of each canvas world.</p>
+					<h4>Mist and Painting Effects</h4>
+					<p>Built shaders for mist, entering paintings, and the painted surface look that give each world transition a
+						soft, magical feel.</p>
 				</div>
 				<div class="feature-card">
-					<h4>Cozy Presentation</h4>
-					<p>Focused on polishing the presentation layer so transitions, staging, and moment-to-moment feedback matched
-						the warm tone of a game about family memories and restored artwork.</p>
+					<h4>VFX and Interactable Feedback</h4>
+					<p>Added supporting VFX and a dissolve effect for interactables to make player feedback clearer and the
+						presentation feel more alive.</p>
 				</div>
 			</div>
 
