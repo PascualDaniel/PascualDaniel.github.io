@@ -1,0 +1,280 @@
+<html>
+
+<head>
+	<title>Daniel Pascual - Lexicon Diaboli</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<style>
+		.highlight-link {
+			color: #c7132d;
+			font-weight: bold;
+		}
+
+		.project-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			margin: 18px 0 24px;
+		}
+
+		.project-meta span {
+			background: #180b16;
+			border: 1px solid #d7334f;
+			border-radius: 999px;
+			color: #ffd9df;
+			font-weight: 700;
+			padding: 7px 14px;
+		}
+
+		.cta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 14px;
+			justify-content: center;
+			margin: 26px 0;
+		}
+
+		.cta-row a {
+			background: #b5122b;
+			border-radius: 8px;
+			color: #fff;
+			font-weight: 700;
+			padding: 10px 18px;
+			text-decoration: none;
+			transition: background 0.2s ease, transform 0.2s ease;
+		}
+
+		.cta-row a:hover {
+			background: #e23650;
+			transform: translateY(-2px);
+		}
+
+		.lexicon-hero-card {
+			background:
+				radial-gradient(circle at 50% 25%, rgba(255, 0, 153, 0.38), transparent 26%),
+				radial-gradient(circle at 72% 64%, rgba(206, 20, 43, 0.36), transparent 23%),
+				linear-gradient(135deg, #0a0509 0%, #2d0b18 48%, #080608 100%);
+			border: 1px solid rgba(255, 94, 127, 0.55);
+			border-radius: 16px;
+			box-shadow: 0 18px 42px rgba(40, 0, 15, 0.38);
+			color: #fff;
+			margin: 24px auto;
+			max-width: 760px;
+			overflow: hidden;
+			padding: 46px 28px;
+			position: relative;
+			text-align: center;
+		}
+
+		.lexicon-hero-card::before {
+			background-image: linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+			background-size: 14px 14px;
+			content: "";
+			inset: 0;
+			opacity: 0.28;
+			position: absolute;
+		}
+
+		.lexicon-hero-card::after {
+			border: 2px solid rgba(255, 0, 153, 0.72);
+			border-radius: 50%;
+			box-shadow: 0 0 30px rgba(255, 0, 153, 0.6), inset 0 0 28px rgba(214, 0, 42, 0.45);
+			content: "";
+			height: 180px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 180px;
+		}
+
+		.lexicon-hero-card h3,
+		.lexicon-hero-card p {
+			position: relative;
+			z-index: 1;
+		}
+
+		.lexicon-hero-card h3 {
+			color: #fff;
+			font-size: 2.2em;
+			letter-spacing: 0.08em;
+			margin-bottom: 0.3em;
+			text-transform: uppercase;
+			text-shadow: 0 0 14px rgba(255, 0, 153, 0.75);
+		}
+
+		.lexicon-hero-card p {
+			color: #ffdfe5;
+			font-weight: 700;
+			margin: 0;
+		}
+
+		.feature-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			margin: 26px 0;
+			text-align: left;
+		}
+
+		.feature-card {
+			background: #fff7f8;
+			border: 1px solid #f0b0bc;
+			border-radius: 12px;
+			box-shadow: 0 8px 20px rgba(75, 9, 24, 0.12);
+			padding: 20px;
+		}
+
+		.feature-card h4 {
+			color: #7b1024;
+			margin-bottom: 8px;
+		}
+	</style>
+</head>
+
+<body class="is-preload view-page">
+	<!-- Header -->
+	<div id="header">
+		<div class="top">
+			<div id="logo">
+				<span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+				<h1 id="title">Daniel Pascual</h1>
+				<p>Software Engineer, Game Developer</p>
+			</div>
+
+			<nav id="nav">
+				<ul>
+					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
+					<li><a href="https://flyerss.itch.io/lexicon-diaboli" id="itchio-link" target="_blank"><span
+								class="icon solid fa-gamepad">Play on itch.io</span></a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="bottom">
+			<ul class="icons">
+				<li><a href="https://x.com/KillPotatos" class="icon brands fa-twitter"><span
+							class="label">Twitter</span></a></li>
+				<li><a href="https://paxcu.itch.io" class="fa-brands fa-itch-io"><span class="label">Itch io</span></a>
+				</li>
+				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span
+							class="label">Github</span></a></li>
+				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
+							class="label">linkedin</span></a></li>
+				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
+							class="label">Email</span></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+		<section id="top" class="one dark cover">
+			<div class="container">
+				<header>
+					<h2 class="alt"><strong>Lexicon Diaboli</strong></h2>
+				</header>
+			</div>
+		</section>
+
+		<section class="post">
+			<header>
+				<h2>Lexicon Diaboli - Jamaggedon 2026</h2>
+			</header>
+
+			<div class="project-meta">
+				<span>Role: Technical Artist / VFX</span>
+				<span>Unity</span>
+				<span>Atmospheric Horror</span>
+				<span>Puzzle / Interactive Fiction</span>
+				<span>Windows</span>
+			</div>
+
+			<div class="lexicon-hero-card">
+				<h3>Lexicon Diaboli</h3>
+				<p>Dithered horror, demonic color language, shaders, audio, and VFX.</p>
+			</div>
+
+			<p>
+				<em>Lexicon Diaboli</em> is an atmospheric horror game about an exorcist exploring a cursed church after
+				a failed ritual. The player searches for forbidden notes and spell fragments, combines meanings at the altar,
+				and uses them to open sealed paths deeper inside the corrupted cathedral.
+			</p>
+
+			<p>
+				My strongest contribution was the <strong>visual identity</strong>. I worked on the technical art pass that gives
+				the game its occult, high-contrast look, using shaders, fake lighting, and VFX to guide the player while keeping
+				the atmosphere unsettling and readable.
+			</p>
+
+			<div class="cta-row">
+				<a href="https://flyerss.itch.io/lexicon-diaboli" target="_blank">Play on itch.io</a>
+			</div>
+
+			<h3>Technical Art Focus</h3>
+			<div class="feature-grid">
+				<div class="feature-card">
+					<h4>Normal + Depth Outline Shader</h4>
+					<p>Built an outline shader using scene normals and depth so silhouettes and important objects stay readable in
+						dark, noisy horror spaces.</p>
+				</div>
+				<div class="feature-card">
+					<h4>Dither Color Quantization Shader</h4>
+					<p>Created the main dither shader that quantizes the palette and uses magenta as a mask to remap selected areas
+						into red highlights for ritual emphasis and visual direction.</p>
+				</div>
+				<div class="feature-card">
+					<h4>Occult VFX Library</h4>
+					<p>Implemented dissolve cards, an energy sphere, water, a portal, fake lights, and other supporting effects to
+						make spells, transitions, and supernatural moments feel stronger.</p>
+				</div>
+				<div class="feature-card">
+					<h4>Devil Voice and Audio Editing</h4>
+					<p>Recorded/dubbed the devil voice and edited audio so the demonic presence matched the distorted visual style.</p>
+				</div>
+			</div>
+
+			<h3>Project Links</h3>
+			<p>
+				You can download the released Windows build from
+				<a href="https://flyerss.itch.io/lexicon-diaboli" class="highlight-link" target="_blank">the itch.io page</a>.
+			</p>
+
+			<h2>The Development Team</h2>
+			<ul>
+				<li>Julia Fluiters - Programming</li>
+				<li>Rodrigo Manzano - Programming</li>
+				<li>Eduardo Rico - Programming</li>
+				<li>Francisco Blumel - Design</li>
+				<li>Alicia Llopis - Art</li>
+				<li>Irene Rodriguez - Art</li>
+				<li>Nerea Herreros - Music</li>
+				<li>Daniel Pascual - Technical Art, VFX, Devil Voice, Audio Editing</li>
+			</ul>
+		</section>
+	</div>
+
+	<!-- Footer -->
+	<div id="footer">
+		<ul class="copyright">
+			<li>&copy; Daniel Pascual Portfolio. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/jquery.scrolly.min.js"></script>
+	<script src="../assets/js/jquery.scrollex.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
