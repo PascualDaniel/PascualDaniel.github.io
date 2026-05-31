@@ -121,6 +121,95 @@
 			color: #7b1024;
 			margin-bottom: 8px;
 		}
+		.project-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			margin: 18px 0 24px;
+		}
+
+		.project-meta span {
+			background: #f2e8ff;
+			border: 1px solid #caa8ff;
+			border-radius: 999px;
+			color: #442066;
+			font-weight: 700;
+			padding: 7px 14px;
+		}
+
+		.cta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 14px;
+			justify-content: center;
+			margin: 26px 0;
+		}
+
+		.cta-row a {
+			background: #6f46b1;
+			border-radius: 8px;
+			color: #fff;
+			font-weight: 700;
+			padding: 10px 18px;
+			text-decoration: none;
+			transition: background 0.2s ease, transform 0.2s ease;
+		}
+
+		.cta-row a:hover {
+			background: #8a54ce;
+			transform: translateY(-2px);
+		}
+
+		.feature-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			margin: 26px 0;
+			text-align: left;
+		}
+
+		.feature-card {
+			background: #fff8f1;
+			border: 1px solid #ead3ff;
+			border-radius: 12px;
+			box-shadow: 0 8px 20px rgba(93, 60, 123, 0.12);
+			padding: 20px;
+		}
+
+		.feature-card h4 {
+			color: #4b2a6d;
+			margin-bottom: 8px;
+		}
+
+		.trailer-wrap {
+			margin: 28px 0;
+		}
+
+		.video-frame {
+			aspect-ratio: 16 / 9;
+			border: 0;
+			border-radius: 14px;
+			box-shadow: 0 12px 32px rgba(42, 28, 62, 0.22);
+			display: block;
+			margin: 0 auto;
+			max-width: 640px;
+			width: 100%;
+		}
+
+		.gallery-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			margin: 22px 0 8px;
+		}
+
+		.gallery-grid img {
+			border-radius: 12px;
+			box-shadow: 0 12px 28px rgba(42, 28, 62, 0.18);
+			height: auto;
+			width: 100%;
+		}
 	</style>
 </head>
 
@@ -177,6 +266,7 @@
 				<h2>Lexicon Diaboli - Jamaggedon 2026</h2>
 			</header>
 
+		
 			<div class="project-meta">
 				<span>Role: Technical Artist / VFX</span>
 				<span>Unity</span>
@@ -189,6 +279,16 @@
                 <img src="../images/Lexicon-Diaboli/Logo.png" alt="Lexicon Diaboli cover" style="width:100%;max-width:640px;border-radius:12px;margin:0 auto 18px;display:block;" />
 				<h3>Lexicon Diaboli</h3>
 				<p>Dithered horror, demonic color language, shaders, audio, and VFX.</p>
+			</div>
+	<div class="cta-row">
+				<a href="https://flyerss.itch.io/lexicon-diaboli" target="_blank">Play on itch.io</a>
+			</div>
+
+				<h3>Trailer</h3>
+			<div class="trailer-wrap">
+				<iframe class="video-frame" src="https://www.youtube.com/embed/3cVwxuMujkI?t=3s&autoplay=1&mute=1&controls=0&loop=1" title="Between the Canvases trailer"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen></iframe>
 			</div>
 
 				<!-- Gallery: images from images/Lexicon-Diaboli -->
@@ -210,9 +310,6 @@
 				the atmosphere unsettling and readable.
 			</p>
 
-			<div class="cta-row">
-				<a href="https://flyerss.itch.io/lexicon-diaboli" target="_blank">Play on itch.io</a>
-			</div>
 
 			<h3>What i Did</h3>
 			<div class="feature-grid">

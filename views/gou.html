@@ -6,29 +6,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<style>
-		.image.main img {
-			margin: 10px auto;
-			/* Add margin to the top and bottom of the images */
-			display: block;
-			/* Make the images block elements */
-			width: 70%;
-			/* Adjust the width as needed */
-			height: auto;
-			/* Maintain aspect ratio */
+		/* Align gallery and media sizing with project-wide conventions */
+		.image.main {
+			margin-top: 1.5em;
+			text-align: center;
+		}
 
+		.image.main img,
+		.image.main video {
+			display: block;
+			margin: 12px auto;
+			width: min(78%, 920px);
+			height: auto;
+			border-radius: 8px;
+			border: 1px solid rgba(255,255,255,0.06);
 		}
 
 		.highlight-link {
 			color: #14006e;
-			/* Change to your desired color */
 			font-weight: bold;
 		}
 
-		.image.main video {
-			margin: 10px auto;
-			display: block;
-			width: 70%;
-			height: auto;
+		.project-list {
+			margin-top: 1em;
+		}
+
+		.project-list ul {
+			margin-left: 1.2em;
 		}
 	</style>
 </head>
@@ -90,8 +94,7 @@
 			<div class="container">
 
 				<header>
-					<h2 class="alt"> <strong>Gou</strong>
-
+					<h2 class="alt"><strong>Gou</strong></h2>
 				</header>
 
 			</div>
