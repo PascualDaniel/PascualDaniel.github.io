@@ -1,13 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<title>Daniel Pascual</title>
+	<title>Underpacked! – Daniel Pascual</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="Underpacked! is a co-op time-management game by Drunken Duck Co., releasing on Steam in November 2026. Daniel Pascual: gameplay, UI, VFX, shaders, audio and QA." />
 	<link rel="stylesheet" href="../assets/css/main.css" />
 	<style>
-		/* Carrusel personalizado */
+		/* ---------- Project facts ---------- */
+		.status-badge {
+			display: inline-block;
+			background: #be7c00;
+			color: #fff;
+			font-weight: 600;
+			padding: 4px 14px;
+			border-radius: 20px;
+			font-size: 0.85em;
+			margin-bottom: 1em;
+		}
+
+		.project-facts {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+			gap: 12px 24px;
+			margin: 1.5em 0 2em;
+			padding: 18px 22px;
+			background: #f4f4f4;
+			border-left: 4px solid #be7c00;
+			border-radius: 6px;
+		}
+
+		.project-facts dt {
+			font-weight: 600;
+			color: #333;
+			font-size: 0.9em;
+		}
+
+		.project-facts dd {
+			margin: 0 0 6px;
+			color: #555;
+		}
+
+		.cta-row {
+			margin: 1.5em 0 2em;
+		}
+
+		.cta-row a.button {
+			margin-right: 10px;
+		}
+
+		/* ---------- Contribution groups ---------- */
+		.contrib-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 20px;
+			margin: 1.5em 0 2em;
+		}
+
+		.contrib-block {
+			background: #f9f9f9;
+			border-radius: 8px;
+			padding: 16px 20px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		}
+
+		.contrib-block h4 {
+			margin: 0 0 8px;
+			color: #333;
+		}
+
+		.contrib-block ul {
+			margin: 0;
+			padding-left: 1.2em;
+			color: #555;
+		}
+
+		/* ---------- Timeline ---------- */
+		.timeline {
+			border-left: 3px solid #be7c00;
+			margin: 1.5em 0 2em 8px;
+			padding-left: 20px;
+		}
+
+		.timeline-step {
+			margin-bottom: 1.2em;
+		}
+
+		.timeline-step strong {
+			display: block;
+			color: #333;
+		}
+
+		/* ---------- Carousel ---------- */
 		#detailed-contributions {
 			text-align: center;
 			margin-top: 60px;
@@ -32,7 +117,7 @@
 		.carousel-item {
 			min-width: 100%;
 			box-sizing: border-box;
-			padding: 10px;
+			padding: 10px 50px;
 			display: none;
 			flex-direction: column;
 			align-items: center;
@@ -62,6 +147,12 @@
 			line-height: 1.4em;
 		}
 
+		.carousel-counter {
+			margin-top: 10px;
+			color: #777;
+			font-size: 0.9em;
+		}
+
 		.carousel-btn {
 			position: absolute;
 			top: 50%;
@@ -80,12 +171,66 @@
 			background: #9e6500;
 		}
 
+		.carousel-btn:focus-visible,
+		.show-more-border:focus-visible {
+			outline: 3px solid #14006e;
+			outline-offset: 2px;
+		}
+
 		.carousel-btn.prev {
 			left: 15px;
 		}
 
 		.carousel-btn.next {
 			right: 15px;
+		}
+
+		.carousel-inner-group {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		.border-more-media {
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		.media-caption {
+			color: #555;
+			font-size: 0.95em;
+		}
+
+		.show-more-border {
+			margin: 5px 0;
+			padding: 6px 18px;
+			border-radius: 6px;
+			border: none;
+			background: #14006e;
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		@media (max-width: 600px) {
+			.carousel-item {
+				padding: 10px 10px 50px;
+			}
+
+			.carousel-btn {
+				top: auto;
+				bottom: 10px;
+				transform: none;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.carousel {
+				transition: none;
+			}
 		}
 	</style>
 </head>
@@ -95,7 +240,7 @@
 	<div id="header">
 		<div class="top">
 			<div id="logo">
-				<span class="image avatar48"><img src="../images/lipinpato.png" alt="my image" /></span>
+				<span class="image avatar48"><img src="../images/lipinpato.png" alt="Daniel Pascual" /></span>
 				<h1 id="title">Daniel Pascual</h1>
 				<p>Software Engineer</p>
 			</div>
@@ -103,11 +248,13 @@
 			<nav id="nav">
 				<ul>
 					<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
+					<li><a href="#contribution" id="contribution-link"><span class="icon solid fa-code">My Role</span></a></li>
+					<li><a href="#detailed-contributions" id="breakdown-link"><span class="icon solid fa-film">Breakdown</span></a></li>
 					<li><a href="../index.html" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
 					</li>
 					<li>
 						<a href="https://store.steampowered.com/app/3587480/Underpacked/" id="steam-link"
-							target="_blank">
+							target="_blank" rel="noopener">
 							<span class="icon solid fa-gamepad">View on Steam</span>
 						</a>
 					</li>
@@ -123,7 +270,7 @@
 				</li>
 				<li><a href="https://github.com/PascualDaniel" class="icon brands fa-github"><span
 							class="label">Github</span></a></li>
-				<li><a href="www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
+				<li><a href="https://www.linkedin.com/in/daniel-pascual-lopez-600170254" class="icon brands fa-linkedin"><span
 							class="label">linkedin</span></a></li>
 				<li><a href="mailto:danielpascuallopez@hotmail.com" class="icon solid fa-envelope"><span
 							class="label">Email</span></a></li>
@@ -136,195 +283,293 @@
 		<section id="top" class="one dark cover">
 			<div class="container">
 				<header>
-					<h2 class="alt"><strong>Underpacked</strong></h2>
+					<h2 class="alt"><strong>Underpacked!</strong></h2>
+					<p>Co-op chaos in space. Coming to Steam in November 2026.</p>
 				</header>
 			</div>
 		</section>
 
 		<section class="post">
 			<header>
-				<h2>Underpacked! – Master Degree Project</h2>
+				<h2>Underpacked!</h2>
 			</header>
+
+			<span class="status-badge">Releasing on Steam · November 2026</span>
+
 			<div class="video-wrap">
 				<iframe src="https://www.youtube-nocookie.com/embed/Yqu8Kfay-nQ?rel=0" title="Underpacked Trailer"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowfullscreen></iframe>
 			</div>
-			<br>
+
+			<div class="cta-row">
+				<a href="https://store.steampowered.com/app/3587480/Underpacked/" class="button" target="_blank"
+					rel="noopener">Wishlist on Steam</a>
+			</div>
+
 			<p>
-				<em>Underpacked!</em> is a third-person cooperative game, free-to-play, developed by the Spanish studio
-				<strong>Drunken Duck Co.</strong> in collaboration with <strong>Voxel School</strong>. With a vibrant
-				cartoon aesthetic and satirical humor, the game blends
-				<em>time management</em>, chaotic action, intergalactic deliveries, and a playful critique of modern
+				<em>Underpacked!</em> is a third-person cooperative game developed by the Spanish studio
+				<strong>Drunken Duck Co.</strong> With a vibrant cartoon aesthetic and satirical humor, it blends
+				<em>time management</em>, chaotic action and intergalactic deliveries into a playful critique of modern
 				work culture.
 			</p>
 
-			<h3>My Contribution to the Project</h3>
-			<p>I worked across a wide range of areas, from gameplay mechanics to technical optimization. Some of my key
-				contributions include:</p>
-			<div class="project-list">
-				<ul>
-					<li><strong>Gameplay Mechanics:</strong> turret system, hull breaches, mailbox movement, respawn
-						system.</li>
-					<li><strong>Visuals & Animation:</strong> player/bot animation systems, contextual actions, emote
-						wheel.</li>
-					<li><strong>Technical Art:</strong> dynamic tube & cable generators, hologram notification, velocity
-						dependent background changes.</li>
-					<li><strong>Visual Effects (VFX):</strong> explosions, fire, electricity, smoke, package effects,
-						enemy VFX and more.</li>
-					<li><strong>Post-processing & Audio:</strong> outline effects, ship damage effect, FMOD integration
-						and all audio-related tasks.</li>
-					<li><strong>Optimization & QA:</strong> profiling, testing, playtesting.</li>
-				</ul>
+			<dl class="project-facts">
+				<div>
+					<dt>Studio</dt>
+					<dd>Drunken Duck Co.</dd>
+				</div>
+				<div>
+					<dt>Genre</dt>
+					<dd>Third-person co-op, time management</dd>
+				</div>
+				<div>
+					<dt>Engine</dt>
+					<dd>Unreal Engine (Blueprints), FMOD</dd>
+				</div>
+				<div>
+					<dt>Platform</dt>
+					<dd>PC (Steam)</dd>
+				</div>
+				<div>
+					<dt>My role</dt>
+					<dd>Gameplay, UI, Technical Art, VFX, Audio, QA</dd>
+				</div>
+				<div>
+					<dt>Status</dt>
+					<dd>In production, launching November 2026</dd>
+				</div>
+			</dl>
+
+			<h3>Project Timeline</h3>
+			<div class="timeline">
+				<div class="timeline-step">
+					<strong>Origins</strong>
+					Started as a team project at UCM and Voxel School, creating the foundation for the studio, Drunken Duck Co., and the game itself. The prototype was built in Unreal Engine with a focus on co-op gameplay, time management and chaotic action.
+				</div>
+				<div class="timeline-step">
+					<strong>Production</strong>
+					After the academic phase, development continued at the studio for roughly a year and a half more,
+					growing from a prototype into a complete game with new levels, systems, art and audio.
+				</div>
+				<div class="timeline-step">
+					<strong>Launch</strong>
+					Release on Steam in November 2026.
+				</div>
 			</div>
 
-			<!-- Carrusel Detallado -->
+			<h3 id="contribution">My Contribution</h3>
+			<p>I work across gameplay, interface, technical art, audio and quality. Since the project moved into full
+				production my responsibilities have expanded significantly.</p>
+
+			<div class="contrib-grid">
+				<div class="contrib-block">
+					<h4>Production phase</h4>
+					<ul>
+						<li><strong>Level production:</strong> 5 additional levels, from layout to final pass.</li>
+						<li><strong>Interface:</strong> on-screen mailbox indicator that shows which mailbox and color
+							is requested and moves across the screen to guide the player.</li>
+						<li><strong>Level selector:</strong> a system to display 3D objects as UI images, used for the
+							planets you travel to.</li>
+						<li><strong>Audio:</strong> expanded FMOD integration across new levels and systems.</li>
+						<li><strong>Post-processing:</strong> hit feedback effect when the player is struck.</li>
+						<li><strong>VFX &amp; shaders:</strong> all effects and shaders added during production.</li>
+						<li><strong>Art pipeline:</strong> asset swaps and updates as the art direction matured.</li>
+						<li><strong>QA:</strong> continuous testing, bug reporting and playtesting.</li>
+					</ul>
+				</div>
+				<div class="contrib-block">
+					<h4>Foundations (initial development)</h4>
+					<ul>
+						<li><strong>Gameplay:</strong> turret system, hull breaches, mailbox movement, respawn system.</li>
+						<li><strong>Animation:</strong> player and bot animation systems, contextual actions, emote wheel.</li>
+						<li><strong>Technical art:</strong> dynamic tube and cable generators, hologram notification,
+							velocity-dependent background changes.</li>
+						<li><strong>VFX:</strong> explosions, fire, electricity, smoke, package and enemy effects.</li>
+						<li><strong>Post-processing &amp; audio:</strong> outline effects, ship damage effect, FMOD integration.</li>
+						<li><strong>Optimization:</strong> profiling and performance testing.</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Detailed Breakdown -->
 			<section id="detailed-contributions">
 				<h3>Detailed Breakdown</h3>
 				<div class="carousel-container">
 					<div class="carousel">
+
+						<!-- Object Highlight -->
 						<div class="carousel-item active">
 							<h4>Object Highlight</h4>
 							<p>
-								Highlighted interactable objects with illuminated borders and guiding arrows.<br>
-								Below: Example of the Unreal Engine material graph used for advanced visual effects in
-								the project.
+								Interactable objects are highlighted with illuminated borders and guiding arrows.
 							</p>
-							<div class="carousel-inner-group"
-								style="display: flex; flex-direction: column; align-items: center;">
+							<div class="carousel-inner-group">
 								<video src="../images/Undepacked/Border.mp4" autoplay loop muted playsinline
 									style="max-width: 90%; margin-bottom: 10px;"></video>
-								<!-- Hidden extra images, shown with "Show More" -->
-								<div class="border-more-media"
-									style="display: none; flex-direction: column; align-items: center;">
-									<img src="../images/Undepacked/Border1.png" alt="Material Graph1"
+								<div class="border-more-media">
+									<img src="../images/Undepacked/Border1.png" alt="Border highlight material graph, part 1"
 										style="max-width: 90%; margin-bottom: 10px;">
-									<img src="../images/Undepacked/Border2.png" alt="Material Graph2"
+									<img src="../images/Undepacked/Border2.png" alt="Border highlight material graph, part 2"
 										style="max-width: 90%; margin-bottom: 10px;">
+									<span class="media-caption">Unreal Engine material graph behind the effect.</span>
 								</div>
-								<button class="show-more-border"
-									style="margin: 5px 0; padding: 6px 18px; border-radius: 6px; border: none; background: #14006e; color: #fff; font-weight: bold; cursor: pointer;">
-									Show Material Graph
-								</button>
+								<button class="show-more-border" data-more="Show Material Graph">Show Material Graph</button>
 							</div>
-
 						</div>
+
+						<!-- Mailbox indicator (NEW) -->
+						<div class="carousel-item">
+							<h4>Mailbox Indicator</h4>
+							<p>
+								A UI marker that tells players which mailbox needs a delivery and in which color. It
+								travels across the screen to point toward the target, so players can keep their eyes
+								on the action instead of hunting for the right mailbox.
+							</p>
+							<div class="carousel-inner-group">
+								<!-- TODO: add media -->
+								<!-- <video src="../images/Undepacked/MailboxIndicator.mp4" autoplay loop muted playsinline style="max-width: 90%; margin-bottom: 10px;"></video> -->
+							</div>
+						</div>
+
+						<!-- Level selector planets (NEW) -->
+						<div class="carousel-item">
+							<h4>Level Selector: 3D Planets as UI</h4>
+							<p>
+								The level selector shows each destination as a live 3D planet rather than a flat
+								image. I built a reusable way to render 3D objects inside the interface, which lets
+								the planets rotate, light up and react to selection like any other element of the menu.
+							</p>
+							<div class="carousel-inner-group">
+								<!-- TODO: add media -->
+								<!-- <video src="../images/Undepacked/LevelSelector.mp4" autoplay loop muted playsinline style="max-width: 90%; margin-bottom: 10px;"></video> -->
+							</div>
+						</div>
+
+						<!-- Tube System -->
 						<div class="carousel-item">
 							<h4>Tube System</h4>
 							<p>
-								I implemented a dynamic tube system for transporting packages across the ship. This
-								system allows developers to create and modify tube layouts in real-time, enabling
-								flexible and efficient level design. The tubes use two custom materials: one for the
-								tube itself and another to indicate direction, both featuring vertex animation for a
-								lively, animated appearance.
+								A dynamic tube system for transporting packages across the ship. Designers can create
+								and modify tube layouts in real time, which makes level design faster and more
+								flexible. The tubes use two custom materials, one for the tube and one to indicate
+								direction, both with vertex animation.
 							</p>
-							<div class="carousel-inner-group"
-								style="display: flex; flex-direction: column; align-items: center;">
+							<div class="carousel-inner-group">
 								<video src="../images/Undepacked/Tubes.mp4" autoplay loop muted playsinline
 									style="max-width: 90%; margin-bottom: 10px;"></video>
-								<!-- Hidden extra images, shown with "Show More" -->
-								<div class="border-more-media"
-									style="display: none; flex-direction: column; align-items: center;">
+								<div class="border-more-media">
 									<iframe src="https://blueprintue.com/render/d15gna3v/" scrolling="no"
-										allowfullscreen
+										allowfullscreen title="Tube system blueprint"
 										style="width:100%; min-height:300px; margin-bottom: 10px;"></iframe>
 									<img src="../images/Undepacked/TubeVertexAnim.png"
-										alt="Tube Vertex Animation Material"
+										alt="Tube vertex animation material"
 										style="max-width: 90%; margin-bottom: 10px;">
-									<span style="color:#555; font-size:0.95em;">
+									<span class="media-caption">
 										Above: Blueprint logic for the tube system.<br>
-										Below: Vertex animation gives the tubes a dynamic, organic feel.<br>
-										Additional VFX and SFX provide feedback when a package enters or exits the tube.
+										Below: Vertex animation material.<br>
+										VFX and SFX give feedback when a package enters or exits a tube.
 									</span>
 								</div>
-								<button class="show-more-border"
-									style="margin: 5px 0; padding: 6px 18px; border-radius: 6px; border: none; background: #14006e; color: #fff; font-weight: bold; cursor: pointer;">
-									Show implementation
-								</button>
+								<button class="show-more-border" data-more="Show implementation">Show implementation</button>
 							</div>
 						</div>
+
+						<!-- Machine Animations -->
 						<div class="carousel-item">
 							<h4>Machine Animations</h4>
 							<p>
-								I implemented a variety of machine animations to enhance the visual feedback of
-								interactions within the game. These animations include interaction animations for when
-								players engage with machines, as well as some VFX to indicate machine status.
-								The animations were created using tweens by code.
+								Animations for machines to give clear feedback on every interaction, plus VFX that
+								communicate machine status. They are driven by tweens in code.
 							</p>
-							<div class="carousel-inner-group"
-								style="display: flex; flex-direction: column; align-items: center;">
+							<div class="carousel-inner-group">
 								<video src="../images/Undepacked/PackageAnim.mp4" autoplay loop muted playsinline
 									style="max-width: 90%; margin-bottom: 10px;"></video>
-								<!-- Hidden extra images, shown with "Show More" -->
-								<div class="border-more-media"
-									style="display: none; flex-direction: column; align-items: center;">
+								<div class="border-more-media">
 									<video src="../images/Undepacked/AmmoGen.mp4" autoplay loop muted playsinline
 										style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/Furnace.mp4" autoplay loop muted playsinline
 										style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/Turret.mp4" autoplay loop muted playsinline
 										style="max-width: 90%; margin-bottom: 10px;"></video>
-									<span style="color:#555; font-size:0.95em;">
-										Above: Ammo Generation Animation.<br>
-										Mid: Furnace Animation.<br>
-										Below: Turret Animation.<br>
+									<span class="media-caption">
+										Above: Ammo generation.<br>
+										Mid: Furnace.<br>
+										Below: Turret.
 									</span>
 								</div>
-								<button class="show-more-border"
-									style="margin: 5px 0; padding: 6px 18px; border-radius: 6px; border: none; background: #14006e; color: #fff; font-weight: bold; cursor: pointer;">
-									Show More
-								</button>
+								<button class="show-more-border" data-more="Show More">Show More</button>
 							</div>
 						</div>
+
+						<!-- Hit post-process (NEW) -->
 						<div class="carousel-item">
-							<h4>Various VFX</h4>
+							<h4>Hit Feedback Post-Process</h4>
 							<p>
-								A selection of visual effects created for Underpacked! to enhance gameplay feedback and
-								atmosphere. These include explosions, electricity, fire, smoke, interactive package
-								effects, and more—each designed to be both performant and visually appealing in a
-								chaotic co-op environment.
+								A post-processing effect that triggers when the player is hit, so damage reads
+								instantly even in the middle of the chaos.
 							</p>
-							<div class="carousel-inner-group"
-								style="display: flex; flex-direction: column; align-items: center;">
-								<!-- Main visible videos -->
+							<div class="carousel-inner-group">
+								<!-- TODO: add media -->
+								<!-- <video src="../images/Undepacked/HitPostProcess.mp4" autoplay loop muted playsinline style="max-width: 90%; margin-bottom: 10px;"></video> -->
+							</div>
+						</div>
+
+						<!-- Various VFX -->
+						<div class="carousel-item">
+							<h4>VFX &amp; Shaders</h4>
+							<p>
+								Visual effects and shaders created for Underpacked! to improve gameplay feedback and
+								atmosphere: explosions, electricity, fire, smoke, package effects and more. Each one
+								is built to be performant and readable in a chaotic co-op environment.
+							</p>
+							<div class="carousel-inner-group">
 								<video src="../images/Undepacked/VariousVFXVideos/DoesntWork.mp4" autoplay loop muted
 									playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
-								
-								
-								<!-- Hidden extra VFX, shown with "Show More" -->
-								<div class="border-more-media"
-									style="display: none; flex-direction: column; align-items: center;">
+								<div class="border-more-media">
 									<video src="../images/Undepacked/VariousVFXVideos/Footprints.mp4" autoplay loop muted
-									playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
+										playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/VariousVFXVideos/HoleAbsorb.mp4" autoplay loop muted
-									playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
+										playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/VariousVFXVideos/PackageEffects.mp4" autoplay loop
 										muted playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/VariousVFXVideos/Thruster.mp4" autoplay loop muted
 										playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
 									<video src="../images/Undepacked/VariousVFXVideos/Wrestle.mp4" autoplay loop muted
 										playsinline style="max-width: 90%; margin-bottom: 10px;"></video>
-									<span style="color:#555; font-size:0.95em;">
-										Above: Additional VFX for package interactions, thrusters, and more.
+									<span class="media-caption">
+										More VFX for package interactions, thrusters, footprints and more.
 									</span>
 								</div>
-								<button class="show-more-border"
-									style="margin: 5px 0; padding: 6px 18px; border-radius: 6px; border: none; background: #14006e; color: #fff; font-weight: bold; cursor: pointer;">
-									Show More
-								</button>
+								<button class="show-more-border" data-more="Show More">Show More</button>
 							</div>
 						</div>
+
+						<!-- New levels (NEW) -->
+						<div class="carousel-item">
+							<h4>Level Production</h4>
+							<p>
+								I built 5 additional levels for the final game, covering layout, gameplay setup,
+								lighting, VFX and audio, and then iterating on them after playtests.
+							</p>
+							<div class="carousel-inner-group">
+								<!-- TODO: add screenshots or video -->
+							</div>
+						</div>
+
 					</div>
-					<button class="carousel-btn prev">⟨</button>
-					<button class="carousel-btn next">⟩</button>
+					<button class="carousel-btn prev" aria-label="Previous">⟨</button>
+					<button class="carousel-btn next" aria-label="Next">⟩</button>
 				</div>
+				<div class="carousel-counter" id="carousel-counter" aria-live="polite"></div>
 			</section>
 
 			<h3>Development Team</h3>
 			<ul>
 				<li><a href="https://www.linkedin.com/company/drunken-duck-co/" class="highlight-link"
-						target="_blank">Drunken Duck Co. on LinkedIn</a></li>
-				<li>Collaborated with designers, programmers, artists, and sound designers...</li>
+						target="_blank" rel="noopener">Drunken Duck Co. on LinkedIn</a></li>
+				<li>Worked with designers, programmers, artists and sound designers in a shared production pipeline,
+					from prototype to release.</li>
 			</ul>
 		</section>
 	</div>
@@ -348,13 +593,12 @@
 		const items = document.querySelectorAll('.carousel-item');
 		const nextBtn = document.querySelector('.carousel-btn.next');
 		const prevBtn = document.querySelector('.carousel-btn.prev');
+		const counter = document.getElementById('carousel-counter');
 		let current = 0;
 
 		function showItem(index) {
-			items.forEach((item, i) => {
-				item.classList.remove('active');
-				if (i === index) item.classList.add('active');
-			});
+			items.forEach((item, i) => item.classList.toggle('active', i === index));
+			counter.textContent = (index + 1) + ' / ' + items.length;
 		}
 
 		nextBtn.addEventListener('click', () => {
@@ -369,16 +613,12 @@
 
 		showItem(current);
 
-		document.querySelectorAll('.show-more-border').forEach((btn, idx) => {
+		document.querySelectorAll('.show-more-border').forEach(btn => {
 			btn.addEventListener('click', function () {
 				const moreMedia = btn.parentElement.querySelector('.border-more-media');
-				if (moreMedia.style.display === 'none' || moreMedia.style.display === '') {
-					moreMedia.style.display = 'flex';
-					btn.textContent = 'Show Less';
-				} else {
-					moreMedia.style.display = 'none';
-					btn.textContent = 'Show Material Graph';
-				}
+				const open = moreMedia.style.display === 'flex';
+				moreMedia.style.display = open ? 'none' : 'flex';
+				btn.textContent = open ? btn.dataset.more : 'Show Less';
 			});
 		});
 	</script>
