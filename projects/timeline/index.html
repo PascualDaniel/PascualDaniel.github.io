@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>De los algoritmos a la IA · Línea de tiempo de la informática</title>
+	<meta name="description" content="Línea de tiempo interactiva de la evolución de la informática, las redes y la inteligencia artificial.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<canvas id="net" aria-hidden="true"></canvas>
+
+	<header class="topbar" id="topbar">
+		<span class="label">Resaltar:</span>
+		<div class="filters" id="filters" role="group" aria-label="Resaltar por categoría"></div>
+	</header>
+
+	<nav class="era-nav" id="eraNav" aria-label="Etapas"></nav>
+
+	<aside class="hud" id="hud" aria-hidden="true">
+		<div class="hud-era" id="hudEra"></div>
+		<div class="hud-year" id="hudYear"></div>
+		<div class="hud-row">
+			<span><b id="hudN">0</b> / <span id="hudTotal">40</span></span>
+			<div class="hud-bar"><i id="hudBar"></i></div>
+		</div>
+	</aside>
+
+	<section class="hero" id="inicio">
+		<div class="hero-inner">
+			<h1 id="heroTitle">De los algoritmos a la inteligencia artificial</h1>
+			<p class="hero-sub">Una línea de tiempo de la informática, las redes y la IA. Baja y verás cómo la red va creciendo con la historia.</p>
+		</div>
+		<div class="cue"><i></i><span>Desplázate</span></div>
+	</section>
+
+	<main class="journey" id="journey"></main>
+
+	<section class="finale" id="final">
+		<div class="finale-inner">
+			<h2 class="reveal">El hilo conductor</h2>
+			<p class="reveal">La informática ha evolucionado desde los primeros algoritmos y máquinas de cálculo hasta un mundo de ordenadores conectados que procesan información y generan contenido mediante inteligencia artificial.</p>
+			<div class="pillars reveal">
+				<div class="pillar hw"><strong>Hardware</strong><span>Hizo posible aumentar la capacidad de cálculo.</span></div>
+				<div class="pillar sw"><strong>Software</strong><span>Permitió programar las máquinas.</span></div>
+				<div class="pillar net"><strong>Redes</strong><span>Conectaron los sistemas a escala mundial.</span></div>
+			</div>
+			<p class="reveal">La combinación de estos tres elementos ha hecho posible la sociedad digital actual.</p>
+			<button class="to-top reveal" id="toTop" type="button">Volver al principio</button>
+		</div>
+	</section>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>
