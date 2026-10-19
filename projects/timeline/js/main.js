@@ -72,6 +72,7 @@
 	/* ---------- Filtros (resaltado) ---------- */
 	const filtersEl = $('#filters');
 	let activeFilter = 'all';
+	document.body.dataset.filter = 'all';
 
 	function renderFilters() {
 		const opts = [['all', 'Todos', flat.length]].concat(
@@ -86,6 +87,7 @@
 				label + ' (' + count + ')';
 			b.addEventListener('click', () => {
 				activeFilter = key;
+				document.body.dataset.filter = key;
 				document.body.classList.toggle('filtering', key !== 'all');
 				evEls.forEach(el => el.classList.toggle('match', key === 'all' || el.dataset.cats.split(' ').includes(key)));
 				renderFilters();
