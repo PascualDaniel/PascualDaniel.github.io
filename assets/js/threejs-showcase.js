@@ -22,7 +22,7 @@ if (canvas) {
 	keyLight.position.set(2, 3, 4);
 	scene.add(keyLight);
 
-	const fillLight = new THREE.PointLight(0xff9f1c, 0.9, 10);
+	const fillLight = new THREE.PointLight(0xd4561f, 0.9, 10);
 	fillLight.position.set(-2, -1, 2);
 	scene.add(fillLight);
 
@@ -47,8 +47,8 @@ if (canvas) {
 
 				void main() {
 					float wave = sin(uTime + vUv.y * 6.2831) * 0.5 + 0.5;
-					vec3 base = mix(vec3(0.15, 0.05, 0.45), vec3(0.45, 0.37, 0.95), vUv.y);
-					vec3 highlight = mix(vec3(1.0, 0.62, 0.11), vec3(0.41, 0.36, 0.9), wave);
+					vec3 base = mix(vec3(0.10, 0.06, 0.04), vec3(0.45, 0.20, 0.08), vUv.y);
+					vec3 highlight = mix(vec3(0.83, 0.34, 0.12), vec3(0.93, 0.82, 0.62), wave);
 					vec3 color = mix(base, highlight, wave * 0.8) + vWave * 0.08;
 					gl_FragColor = vec4(color, 1.0);
 				}
@@ -72,7 +72,7 @@ if (canvas) {
 					vec3 lightDir = normalize(vec3(0.6, 0.8, 0.3));
 					float diff = max(dot(vNormal, lightDir), 0.0);
 					float bands = floor(diff * 4.0) / 4.0;
-					vec3 base = mix(vec3(0.15, 0.12, 0.4), vec3(0.9, 0.6, 0.15), bands);
+					vec3 base = mix(vec3(0.10, 0.08, 0.06), vec3(0.83, 0.34, 0.12), bands);
 					float pulse = 0.5 + 0.5 * sin(uTime);
 					gl_FragColor = vec4(base * (0.8 + pulse * 0.2), 1.0);
 				}
@@ -138,7 +138,7 @@ if (canvas) {
 			uv.y += sin(uv.x * 10.0 + uTime * 0.7) * 0.03;
 
 			// Base PS1-ish colors
-			vec3 colorA = vec3(0.6, 0.2, 0.8);
+			vec3 colorA = vec3(0.75, 0.30, 0.12);
 			vec3 colorB = vec3(0.1, 0.7, 0.5);
 			vec3 color = mix(colorA, colorB, uv.y);
 

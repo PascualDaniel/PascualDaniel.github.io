@@ -35,11 +35,11 @@ if (canvas) {
 				vec2 uv = vUv;
 				float t = uTime * 0.7;
 				float band = 0.35 + 0.25 * sin((uv.y + t*0.12) * 6.28);
-				vec3 a = vec3(0.03,0.01,0.12);
-				vec3 b = vec3(0.4,0.28,0.85);
-				vec3 c = vec3(0.95,0.6,0.15);
+				vec3 a = vec3(0.07,0.06,0.05);
+				vec3 b = vec3(0.17,0.13,0.10);
+				vec3 c = vec3(0.83,0.34,0.12);
 				vec3 col = mix(a, b, smoothstep(0.0, 1.0, uv.y + band*0.5));
-				col = mix(col, c, 0.1 * sin(t + uv.x*3.14));
+				col = mix(col, c, 0.05 * sin(t + uv.x*3.14));
 				// vignette
 				float v = smoothstep(0.9, 0.3, distance(uv, vec2(0.5)));
 				col *= v;
@@ -69,7 +69,7 @@ if (canvas) {
 	}
 	const pGeo = new THREE.BufferGeometry();
 	pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-	const pMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, sizeAttenuation: true, opacity: 0.85, transparent: true });
+	const pMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, sizeAttenuation: true, opacity: 0.45, transparent: true });
 	const particles = new THREE.Points(pGeo, pMat);
 	particles.frustumCulled = false; // avoid disappearing when on edge
 	scene.add(particles);
